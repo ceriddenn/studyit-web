@@ -1,17 +1,24 @@
 import React from 'react'
 import {useRouter} from 'next/router'
 import MyDeck from './MyDeck'
-import UserSettings from './UserSettings'
 import {LogoutIcon, HomeIcon, CogIcon, SearchCircleIcon, ChatAlt2Icon} from '@heroicons/react/outline'
 import Explore from './Explore'
+import supabase from '../lib/supabase'
 import Circles from './Circles'
 const Sidebar = () => {
     const {query} = useRouter()
+    const router = useRouter()
 
+    const session = supabase.auth.session()
+
+    const handleAccountRedirect = () => {
+      router.push('/profile?id=' + session.user.id)
+    }
+    
   return (
     <div class="flex">
     <div class="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto border-r bg-gray-800 sticky top-0 left-0">
-        <a class="text-blue-700 text-2xl font-bold cursor-pointer pl-4" href="/profile">StudyIt</a>
+        <a class="text-blue-700 text-2xl font-bold cursor-pointer pl-4" href="/">StudyIt</a>
       <div class="flex flex-col justify-between mt-6">
         <aside>
           <ul class="space-y-3">
@@ -37,9 +44,9 @@ const Sidebar = () => {
             </li>
 
             <li className="absolute bottom-0 left-0">
-              <a class={query.page == 'settings' ? "flex items-center px-4 py-2 text-gray-600 rounded-md  bg-gray-200 mb-4 ml-4" : "flex items-center px-4 py-2 text-gray-400 rounded-md mb-4 ml-4"} href="/studyit?page=settings">
+              <a class={query.page == 'settings' ? "flex items-center px-4 py-2 text-gray-600 rounded-md  bg-gray-200 mb-4 ml-4" : "flex items-center px-4 py-2 text-gray-400 rounded-md mb-4 ml-4"}>
               <CogIcon class="w-6 h-6"/>
-                <span class="mx-4 font-medium">My Account</span>
+                <span class="mx-4 font-medium" onClick={() => handleAccountRedirect()}>My Account</span>
               </a>
             </li>
 
@@ -52,7 +59,6 @@ const Sidebar = () => {
     <div class="w-full h-full overflow-y-auto relative">
 
         {query.page == 'home' && <MyDeck/>}
-        {query.page == 'settings' && <UserSettings/>}
         {query.page == 'circles' && <Circles/>}
         {query.page == 'explore' && <Explore/>}
         {query.page !== 'home' && query.page !== 'settings' && query.page !== 'circles' && query.page !== 'explore' && "This page does not exist" }

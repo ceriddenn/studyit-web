@@ -7,7 +7,7 @@ const studyit = () => {
   const [loading, setLoading] = useState(true)
   const session = supabase.auth.session()
   const router = useRouter()
-
+  
   useEffect(() =>{
     if (session && session.user) {
       return;

@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import supabase from '../lib/supabase'
 import {useEffect} from 'react'
 const signup = () => {
+
     const router = useRouter()
     const [show, setShow] = useState(false)
     async function handleGoBack(event) {
@@ -26,6 +27,21 @@ const signup = () => {
             await supabase.auth.signUp({email: email, password: password}).then(async res => {
                 if (!res.error) {
                 if (res) {
+                  const confirmEmailLink = await supabase.auth.api.generateLink(
+                    'signup',
+                    res.user.email
+                  )
+                  fetch('https://InnocentFlakyConversions.ceriddennteam.repl.co/sendsignupemail', {
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              recip: res.user.email,
+              veri: confirmEmailLink.data.action_link
+            }),
+            method: 'POST',
+
+            
+          })
+                  console.log(confirmEmailLink)
                   const newProfile = {
                     id: res.user.id,
                     email: res.user.email,
