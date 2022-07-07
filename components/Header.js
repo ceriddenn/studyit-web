@@ -54,7 +54,7 @@ const Header = () => {
         <nav class="bg-white border-gray-200 px-2 lg:py-4 sm:px-4 py-2.5 dark:bg-gray-800">
   <div class="container flex flex-wrap justify-between items-center mx-auto">
   <a href="https://flowbite.com" class="flex items-center">
-      <img src="https://i.ibb.co/Mh685px/logo-transparent-background.png" class="mr-3 h-16 sm:h-16" alt="StudyIt Logo" />
+      <img src="https://i.ibb.co/TqcYBDM/logo-transparent-background.png" class="mr-3 h-16 sm:h-16" alt="StudyIt Logo" />
       {showLandingAlert &&
 <div class="hidden lg:flex p-4 text-sm text-gray-700 bg-gray-100 rounded-lg dark:bg-gray-700 dark:text-gray-300" role="alert">
   <span class="font-medium">Alert!&nbsp;</span> {landingAlert}
