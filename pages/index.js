@@ -9,6 +9,7 @@ import { BsHandThumbsDownFill } from 'react-icons/bs'
 const Home = () => {
   const router = useRouter()
   const session = supabase.auth.session()
+ 
   return (
     <div>
       <Header/>

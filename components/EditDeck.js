@@ -73,7 +73,7 @@ const initiateEdit = async (event) => {
     return;
   }
   if (deckContents.length > 0) {
-    if (deckContents[0].term.length && deckContents[0].definition) { 
+    if (deckContents[0].term && deckContents[0].definition) { 
     setError(null)
   await supabase.from('StudyDeck').update({deckName: deckData[0].deckName, description: deckData[0].description, contents: deckContents}).match({deckId:props.id}).then(res => {
     if (res.error) {

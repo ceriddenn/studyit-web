@@ -90,10 +90,11 @@ const MyDeck = () => {
       setModalErrorMessage('')
       setModalErrorMessage('The description field was not provided.')
       return;
-    } else if (inputItems[0].term == null && inputItems[0].definition == null) {
+    } else if (inputItems[0].term == null || inputItems[0].definition == null) {
       setModalErrorMessage('')
       setModalErrorMessage('A term and definition are required to create a deck.')
       return;
+      
     } else {
     await supabase.from('StudyDeck').insert({deckName: name, description: description, contents: inputItems, deckOwner: session.user.id}).then(async res => {
       if (res.error) {
