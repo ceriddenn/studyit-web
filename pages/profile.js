@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react'
 import Header from '../components/Header'
 import supabase from '../lib/supabase'
 const profile = () => {
-    const [userData, setUserData] = useState([])
+    const [userData, setUserData] = useState({})
     const {query} = useRouter()
     const [reload, setReload] = useState(1)
 
