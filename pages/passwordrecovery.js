@@ -5,7 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import {toast, ToastContainer} from 'react-toastify'
 import { useRouter } from 'next/router'
 const passwordrecovery = () => {
-    const [hash, setHash] = useState(window.location.hash);
+    const [hash, setHash] = useState();
+    setHash(window.location.hash)
     const [token, setToken] = useState(null)
     const query = new URLSearchParams(hash.substring(1));
     const router = useRouter()
