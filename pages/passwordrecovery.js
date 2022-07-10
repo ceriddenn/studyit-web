@@ -9,11 +9,13 @@ const passwordrecovery = () => {
     const router = useRouter()
   useEffect(() => {
     if (!router.isReady) return;
+    const ok = () => {
     const {query} = useRouter()
 
     const token = query.get('access_token')
     setToken(token)
-
+    }
+    ok()
   }, [router.isReady, router.query]);
   
   const handleReset = async (event) => {
