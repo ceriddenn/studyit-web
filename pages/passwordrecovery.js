@@ -19,7 +19,7 @@ const passwordrecovery = () => {
       if (!results[2]) return ''
       setToken(decodeURIComponent(results[2].replace(/\+/g, ' ')))
     }
-    
+
   useEffect(() => {
     if (!router.isReady) return;
     getParameterByName("access_token")
@@ -57,7 +57,6 @@ const passwordrecovery = () => {
   <div class="flex flex-col bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
   <BsArrowLeft class="text-2xl cursor-pointer rounded-lg hover:text-gray-600" onClick={() => router.push('/login')}/>
     <div class="font-medium self-center text-xl sm:text-2xl uppercase text-gray-800">Reset Password</div>
-    <h1>{token}</h1>
     <div class="mt-10">
       <form action="#" onSubmit={event => handleReset(event)}>
         <div class="flex flex-col mb-6">
