@@ -7,14 +7,15 @@ import { useRouter } from 'next/router'
 const passwordrecovery = () => {
     const [token, setToken] = useState(null)
     const router = useRouter()
+    const ok = () => {
+      const {query} = useRouter()
+  
+      const token = query.get('access_token')
+      setToken(token)
+      }
+      ok()
   useEffect(() => {
     if (!router.isReady) return;
-    const ok = () => {
-    const {query} = useRouter()
-
-    const token = query.get('access_token')
-    setToken(token)
-    }
     ok()
   }, [router.isReady, router.query]);
   
