@@ -6,13 +6,12 @@ import {toast, ToastContainer} from 'react-toastify'
 import { useRouter } from 'next/router'
 const passwordrecovery = () => {
     const [hash, setHash] = useState(null);
-    setHash(window.location.hash)
     const [token, setToken] = useState(null)
     const query = new URLSearchParams(hash.substring(1));
     const router = useRouter()
 
   useEffect(() => {
-    const isRecovery = query.get('type') === 'recovery';
+    setHash(window.location.hash)
     const token = query.get('access_token')
     setToken(token)
 
