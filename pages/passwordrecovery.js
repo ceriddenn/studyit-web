@@ -7,11 +7,23 @@ import { useRouter } from 'next/router'
 const passwordrecovery = () => {
     const [token, setToken] = useState(null)
     const router = useRouter()
+    const {query} = useRouter()
+
+    function getParameterByName(name, url) {
+      if (!url) url = window?.location?.href || ''
+      // eslint-disable-next-line no-useless-escape
+      name = name.replace(/[\[\]]/g, '\\$&')
+      const regex = new RegExp('[?&#]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url)
+      if (!results) return null
+      if (!results[2]) return ''
+      setToken(decodeURIComponent(results[2].replace(/\+/g, ' ')))
+    }
+    
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    let token = params.get('access_token')
-    setToken(token)
-  }, []);
+    if (!router.isReady) return;
+    getParameterByName("access_token")
+  }, [router.isReady]);
   
   const handleReset = async (event) => {
     event.preventDefault();
@@ -45,6 +57,7 @@ const passwordrecovery = () => {
   <div class="flex flex-col bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
   <BsArrowLeft class="text-2xl cursor-pointer rounded-lg hover:text-gray-600" onClick={() => router.push('/login')}/>
     <div class="font-medium self-center text-xl sm:text-2xl uppercase text-gray-800">Reset Password</div>
+    <h1>{token}</h1>
     <div class="mt-10">
       <form action="#" onSubmit={event => handleReset(event)}>
         <div class="flex flex-col mb-6">
