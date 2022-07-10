@@ -131,13 +131,12 @@ const profile = () => {
     <div class="p-6">
       <div class="flex flex-row">
       <h5 class="text-white text-xl font-medium mb-2">{d.deckName}</h5>
-      <MinusCircleIcon className="h-6 w-6 text-blue-600 mt-1 ml-2 cursor-pointer hover:text-blue-700 transition ease-in-out delay-150 hover:scale-110" onClick={() => deleteDeck(d.deckId)}/>
+      <MinusCircleIcon className="h-6 w-6 text-blue-600 mt-1 ml-2 cursor-pointer hover:text-blue-700 transition ease-in-out delay-150 hover:scale-110"/>
       </div>
       <p class="text-gray-500 text-base mb-4">
         {d.description}
       </p>
       <button type="button" class=" inline-block px-6 py-2.5 bg-yellow-400 text-white font-medium text-xs leading-tight uppercase rounded hover:bg-yellow-500 transition duration-150 ease-in-out">Study</button>
-      <button type="button" class=" inline-block px-6 py-2.5 bg-yellow-400 text-white font-medium text-xs leading-tight uppercase rounded hover:bg-yellow-500 transition duration-150 ease-in-out ml-3" onClick={() => {setEditDeck(true); setEditDeckId(d.deckId)}}>Edit</button>
 
     </div>
     <div class="py-3 px-6 border-t border-blue-600 text-gray-600">
