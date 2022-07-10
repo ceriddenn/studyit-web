@@ -1,23 +1,28 @@
 import React, {useState, useEffect} from 'react'
 import {useRouter} from 'next/router'
-import supabase from '../lib/supabase'
+import supabase from '../../lib/supabase'
 import { MinusCircleIcon } from '@heroicons/react/outline'
-import DataHelper from './DateHelper'
+import DataHelper from '../../components/DateHelper'
 import { ToastContainer, toast } from 'react-toastify';
 import {PlusIcon, MinusIcon} from '@heroicons/react/outline'
 import {v4 as uuidv4} from 'uuid'
-import EditDeck from './EditDeck'
-const MyDeck = () => {
+import EditDeck from '../../components/EditDeck'
+import Sidebar from '../../components/Sidebar'
+import Loading from '../../components/Loading'
+const home = () => {
   const delay = ms => new Promise(res => setTimeout(res, ms));
   const [decks, setDecks] = useState([])
   const [error, setError] = useState(false)
   const [showMsg, setShowMsg] = useState(false)
   const router = useRouter()
 
+  const [loading, setLoading] = useState(false)
+
   const session = supabase.auth.session()
   useEffect(() => {
     setModalErrorMessage(null)
     setShowMsg(false)
+    setLoading(true)
     if (session && session.user) {
     async function query() {
       const array1 = []
@@ -29,6 +34,7 @@ const MyDeck = () => {
       })
   })
       setDecks(array1)
+      setLoading(false)
   }
   query()
 } else {
@@ -137,16 +143,24 @@ const MyDeck = () => {
   //end
 
   return (
-    <div className="bg-gray-300 min-h-screen">
+    <>
+    {loading ? <Loading/> : 
+    <div className="flex">
+      <Sidebar/>
+      
+    <div className="bg-gray-300 min-h-screen w-full h-full overflow-y-autorelative">
       <div class={showPopup ? "blur-sm" : ""}>
       <div className="p-8 pt-8">
-        
+        <div className="flex flex-row">
     <h1 class="text-2xl p-5">MyDecks</h1>
+    </div>
+
     {showMsg && 
     <h1 class={error ? "pl-5 text-red-600" : "pl-5 text-green-500"}>{error ? "An error occured please try again." : "Success!"}</h1>
     }
     </div>
-    <div>
+
+    <div className="flex flex-row flex-wrap overflow-hidden">
     {decks.length < 1 && <h1 class="pl-14 font-bold text-gray-700">Pretty empty here... Try creating a <span class="underline text-blue-600 cursor-pointer" onClick={() => setShowPopup(true)}>deck!</span></h1>}
     {decks.map(d => {
       return (
@@ -224,14 +238,18 @@ const MyDeck = () => {
               </div>
           </div>
       </div>
-  </div> 
+  </div>
   )}
+  
   {editDeck && <EditDeck id={editDeckId}/>}
 <div class="absolute bottom-0 right-0 mb-8 mr-8 bg-gray-600 rounded-full px-3 py-2 transition ease-in-out delay-150 hover:scale-110 cursor-pointer" onClick={() => setShowPopup(true)}>
     <PlusIcon class="text-white h-5 w-5 cursor-pointer"/>
     </div>
+
     </div>
+    </div>}
+    </>
       )
 }
 
-export default MyDeck
+export default home

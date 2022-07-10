@@ -1,18 +1,15 @@
 import React, {useEffect} from 'react'
 import {useRouter} from 'next/router'
-import MyDeck from './MyDeck'
 import {LogoutIcon, HomeIcon, CogIcon, SearchCircleIcon, ChatAlt2Icon} from '@heroicons/react/outline'
-import Explore from './Explore'
 import supabase from '../lib/supabase'
 import Circles from './Circles'
-import ProfileContent from './ProfileContent'
 const Sidebar = () => {
     const {query} = useRouter()
     const router = useRouter()
     const session = supabase.auth.session()
 
     const handleAccountRedirect = () => {
-      router.push('/profile?id=' + session.user.id + '&page=profile')
+      router.push('/dashboard/profile?id=' + session.user.id)
     }
     
   return (
@@ -23,30 +20,30 @@ const Sidebar = () => {
         <aside>
           <ul class="space-y-3">
             <li>
-              <a class={query.page == 'home' ? "flex items-center px-4 py-2 text-gray-600 rounded-md  bg-gray-200" : "flex items-center px-4 py-2 text-gray-400 rounded-md"} href="/studyit?page=home">
+              <a href="/dashboard/home" class={router.pathname == '/dashboard/home' ? "flex items-center px-4 py-2 text-gray-600 rounded-md  bg-gray-200 mb-4" : "flex items-center px-4 py-2 text-gray-400 rounded-md mb-4"}>
                 <HomeIcon class="w-6 h-6"/>
                 <span class="mx-4 font-medium">MyDecks</span>
               </a>
             </li>
 
             <li>
-              <a class={query.page == 'explore' ? "flex items-center px-4 py-2 text-gray-600 rounded-md  bg-gray-200" : "flex items-center px-4 py-2 text-gray-400 rounded-md"} href="/studyit?page=explore">
+              <a href="/dashboard/explore" class={router.pathname == '/dashboard/explore' ? "flex items-center px-4 py-2 text-gray-600 rounded-md  bg-gray-200 mb-4" : "flex items-center px-4 py-2 text-gray-400 rounded-md mb-4"}>
               <SearchCircleIcon class="w-6 h-6"/>
                 <span class="mx-4 font-medium">Explore</span>
               </a>
             </li>
 
             <li>
-              <a class={query.page == 'circles' ? "flex items-center px-4 py-2 text-gray-600 rounded-md  bg-gray-200" : "flex items-center px-4 py-2 text-gray-400 rounded-md"} href="/studyit?page=circles">
+              <a href="/dashboard/circles" class={router.pathname == '/dashboard/circles' ? "flex items-center px-4 py-2 text-gray-600 rounded-md  bg-gray-200 mb-4" : "flex items-center px-4 py-2 text-gray-400 rounded-md mb-4"}>
               <ChatAlt2Icon class="w-6 h-6"/>
                 <span class="mx-4 font-medium">Circles</span>
               </a>
             </li>
 
             <li className="absolute bottom-0 left-0 cursor-pointer">
-              <a class={query.page == 'profile' ? "flex items-center px-4 py-2 text-gray-600 rounded-md  bg-gray-200 mb-4 ml-4" : "flex items-center px-4 py-2 text-gray-400 rounded-md mb-4 ml-4"}>
+              <a onClick={() => handleAccountRedirect()} class={router.pathname == '/dashboard/profile' ? "flex items-center px-4 py-2 text-gray-600 rounded-md  bg-gray-200 mb-4 ml-4" : "flex items-center px-4 py-2 text-gray-400 rounded-md mb-4 ml-4"}>
               <CogIcon class="w-6 h-6"/>
-                <span class="mx-4 font-medium" onClick={() => handleAccountRedirect()}>My Account</span>
+                <span class="mx-4 font-medium">My Account</span>
               </a>
             </li>
 
@@ -56,14 +53,7 @@ const Sidebar = () => {
         
       </div>
     </div>
-    <div class="w-full h-full overflow-y-auto relative">
-
-        {query.page == 'home' && <MyDeck/>}
-        {query.page == 'circles' && <Circles/>}
-        {query.page == 'explore' && <Explore/>}
-        {query.page == 'profile' && <ProfileContent/>}
-        {query.page !== 'home' && query.page !== 'profile' && query.page !== 'circles' && query.page !== 'explore' && "This page does not exist"  }
-    </div>
+    
     </div>
   )
 }

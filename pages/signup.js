@@ -45,7 +45,7 @@ const signup = () => {
                   const newProfile = {
                     id: res.user.id,
                     email: res.user.email,
-                    username: username,
+                    username: username.toLowerCase(),
                     avatarURL: 'https://cdn.iconscout.com/icon/free/png-256/account-avatar-profile-human-man-user-30448.png',
                   }
                   await supabase.from('Profile').upsert(newProfile).then(res => {
