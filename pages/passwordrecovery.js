@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {toast, ToastContainer} from 'react-toastify'
 import { useRouter } from 'next/router'
 const passwordrecovery = () => {
-    const [hash, setHash] = useState();
+    const [hash, setHash] = useState(null);
     setHash(window.location.hash)
     const [token, setToken] = useState(null)
     const query = new URLSearchParams(hash.substring(1));
@@ -51,7 +51,7 @@ const passwordrecovery = () => {
   <BsArrowLeft class="text-2xl cursor-pointer rounded-lg hover:text-gray-600" onClick={() => router.push('/login')}/>
     <div class="font-medium self-center text-xl sm:text-2xl uppercase text-gray-800">Reset Password</div>
     <div class="mt-10">
-      <form action="#" onSubmit={handleReset}>
+      <form action="#" onSubmit={event => handleReset(event)}>
         <div class="flex flex-col mb-6">
           <label for="email" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">New Password</label>
           <div class="relative">
