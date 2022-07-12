@@ -69,8 +69,44 @@ const profile = () => {
               toast.error(result.error)
             }
     
-  }
+          }
 
+          const updateEmail = async (email) => {
+            const request = await fetch('https://InnocentFlakyConversions.ceriddennteam.repl.co/change_email', {
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                newEmail: email,
+                userId: session.user.id,
+              }),
+              method: 'POST',
+
+          })
+          const result = await request.json()
+          if (result.error == null) {
+            toast.success(result.message)
+          } else {
+            toast.error(result.error)
+          }
+          await supabase.from('Profile').update({email: email}).match({id:session.user.id}).then(res => {
+            // error handling here
+          })
+        }
+        const updateUserName = async (username) => {
+          await supabase.from('Profile').update({username: username}).match({id:session.user.id}).then(res => {
+          })
+        }
+          
+      const updateUserMeta = async (event) => {
+        event.preventDefault()
+        if (!event.target.email.value) {
+          updateUserName(event.target.username.value)
+        } else if (!event.target.username.value) {
+          updateEmail(event.target.email.value)
+        } else {
+          updateUserName(event.target.username.value)
+          updateEmail(event.target.email.value)
+        }
+      }
 
   return (
     <>
@@ -85,14 +121,17 @@ const profile = () => {
         <div className="flex flex-row grow">
         <img src={userData.avatarURL} className=" ml-8 mt-6 mr-2 border border-2 border-blue-500 rounded-full"/>
 
-        <div className="flex flex-col flex-nowrap mt-6 ml-8 mr-4 box-border h-48 w-full p-4 border-2 border-gray-500 bg-gray-700 rounded-md">
+        <div className="flex flex-col flex-nowrap mt-6 ml-8 mr-4 box-border h-48 w-full p-4 border-2 border-gray-500 bg-gray-800 rounded-md">
           <div className="">
+            <form onSubmit={event => updateUserMeta(event)}>
             <div className="flex flex-row shrink-0">
           <h1 className="font-bold text-white pt-2">Change Username</h1>
-          <input type="text" placeholder={userData.username} className="bg-gray-500 text-white border-2 border-gray-600 rounded-md ml-2 px-2 py-2"/>
+          <input type="text" id="username" placeholder={userData.username} className="bg-gray-500 text-white border-2 border-gray-600 rounded-md ml-2 px-2 py-2"/>
           <h1 className="font-bold text-white pt-2 ml-4">Change Email</h1>
-          <input type="text" placeholder={userData.email} className="bg-gray-500 text-white border-2 border-gray-600 rounded-md ml-2 px-2 py-2"/>
+          <input type="text" id="email" placeholder={userData.email} className="bg-gray-500 text-white border-2 border-gray-600 rounded-md ml-2 px-2 py-2"/>
+          <button className='text-white ml-2 py-2 px-2 bg-yellow-400 hover:bg-yellow-500 rounded-md'>Change</button>
           </div>
+          </form>
           <div class="flex">
           <div class="-ml-0.5 w-0.5 h-6 bg-gray-600"></div>
             <div className="font-bold pl-1 text-white flex flex-col">
@@ -137,7 +176,6 @@ const profile = () => {
         {d.description}
       </p>
       <button type="button" class=" inline-block px-6 py-2.5 bg-yellow-400 text-white font-medium text-xs leading-tight uppercase rounded hover:bg-yellow-500 transition duration-150 ease-in-out">Study</button>
-
     </div>
     <div class="py-3 px-6 border-t border-blue-600 text-gray-600">
       <DataHelper date={d.created_at}/>
