@@ -3,7 +3,8 @@ import {useRouter} from 'next/router'
 import {LogoutIcon, HomeIcon, CogIcon, SearchCircleIcon, ChatAlt2Icon} from '@heroicons/react/outline'
 import supabase from '../lib/supabase'
 import Circles from './Circles'
-const Sidebar = () => {
+import StudySidebar from './StudySidebar'
+const Sidebar = (props) => {
     const {query} = useRouter()
     const router = useRouter()
     const session = supabase.auth.session()
@@ -11,10 +12,9 @@ const Sidebar = () => {
     const handleAccountRedirect = () => {
       router.push('/dashboard/profile?id=' + session.user.id)
     }
-    
   return (
     <div class="flex">
-    <div class="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto border-r bg-gray-800 sticky top-0 left-0">
+    <div class="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-gray-800 sticky top-0 left-0">
         <a class="text-blue-700 text-2xl font-bold cursor-pointer pl-4" href="/">StudyIt</a>
       <div class="flex flex-col justify-between mt-6">
         <aside>
@@ -39,6 +39,14 @@ const Sidebar = () => {
                 <span class="mx-4 font-medium">Circles</span>
               </a>
             </li>
+            <li>
+              <a href="/dashboard/study" class={router.pathname.includes('/dashboard/study/') ? "flex items-center px-4 py-2 text-gray-600 rounded-md  bg-gray-200 mb-4" : "flex items-center px-4 py-2 text-gray-400 rounded-md mb-4"}>
+              <ChatAlt2Icon class="w-6 h-6"/>
+                <span class="mx-4 font-medium">Study</span>
+              </a>
+            </li>
+            {router.pathname.includes('/dashboard/study/') && <StudySidebar id={props.id}/>}
+
 
             <li className="absolute bottom-0 left-0 cursor-pointer">
               <a onClick={() => handleAccountRedirect()} class={router.pathname == '/dashboard/profile' ? "flex items-center px-4 py-2 text-gray-600 rounded-md  bg-gray-200 mb-4 ml-4" : "flex items-center px-4 py-2 text-gray-400 rounded-md mb-4 ml-4"}>

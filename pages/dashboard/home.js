@@ -74,6 +74,10 @@ const home = () => {
 
   const [editDeckId, setEditDeckId] = useState(null)
   //end
+
+  //search pag
+  const [searchTerm, setSearchTerm] = useState('')
+  //end
   const addInputItems = () => {
     setInputItems([...inputItems, {id: uuidv4(), 'term': null, 'definition': null}])
   }
@@ -153,6 +157,7 @@ const home = () => {
       <div className="p-8 pt-8">
         <div className="flex flex-row">
     <h1 class="text-2xl p-5">MyDecks</h1>
+    <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-4 mr-4" placeholder="Search" onChange={event => {setSearchTerm(event.target.value)}}/>
     </div>
 
     {showMsg && 
@@ -162,21 +167,35 @@ const home = () => {
 
     <div className="flex flex-row flex-wrap overflow-hidden">
     {decks.length < 1 && <h1 class="pl-14 font-bold text-gray-700">Pretty empty here... Try creating a <span class="underline text-blue-600 cursor-pointer" onClick={() => setShowPopup(true)}>deck!</span></h1>}
-    {decks.map(d => {
+    {decks.filter((val) => {
+      if (searchTerm === '') {
+        return val
+      } else {
+        return val.deckName.toLowerCase().includes(searchTerm.toLowerCase())
+      }
+    }).map(d => {
       return (
         <div key={d.deckId}>
           <div class="flex justify-left pl-12 pb-4">
+
   <div class="block rounded-lg shadow-lg bg-gray-800 max-w-sm">
+
     <div class="p-6">
+
       <div class="flex flex-row">
-      <h5 class="text-white text-xl font-medium mb-2">{d.deckName}</h5>
-      <MinusCircleIcon className="h-6 w-6 text-blue-600 mt-1 ml-2 cursor-pointer hover:text-blue-700 transition ease-in-out delay-150 hover:scale-110" onClick={() => deleteDeck(d.deckId)}/>
+      {d.deckCI ? <img src={d.deckCI} className="flex flex-row w-11 h-11 rounded-full mr-2"/> : ""}
+
+      <h5 class="text-white text-xl font-medium mt-2">{d.deckName}</h5>
+      <MinusCircleIcon className="h-6 w-6 text-blue-600 mt-3 ml-2 cursor-pointer hover:text-blue-700 transition ease-in-out delay-150 hover:scale-110" onClick={() => deleteDeck(d.deckId)}/>
       </div>
-      <p class="text-gray-500 text-base mb-4">
+      <p class="text-gray-500 text-base mb-8 pt-2">
         {d.description}
       </p>
-      <button type="button" class=" inline-block px-6 py-2.5 bg-yellow-400 text-white font-medium text-xs leading-tight uppercase rounded hover:bg-yellow-500 transition duration-150 ease-in-out">Study</button>
+
+      <div className='flex flex-row'>
+      <button type="button" class=" inline-block px-6 py-2.5 bg-yellow-400 text-white font-medium text-xs leading-tight uppercase rounded hover:bg-yellow-500 transition duration-150 ease-in-out" onClick={() => {router.push('/dashboard/study/flashcards?id=' + d.deckId)}}>Study</button>
       <button type="button" class=" inline-block px-6 py-2.5 bg-yellow-400 text-white font-medium text-xs leading-tight uppercase rounded hover:bg-yellow-500 transition duration-150 ease-in-out ml-3" onClick={() => {setEditDeck(true); setEditDeckId(d.deckId)}}>Edit</button>
+      </div>
 
     </div>
     <div class="py-3 px-6 border-t border-blue-600 text-gray-600">

@@ -93,6 +93,7 @@ const profile = () => {
         }
         const updateUserName = async (username) => {
           await supabase.from('Profile').update({username: username}).match({id:session.user.id}).then(res => {
+
           })
         }
           
@@ -175,7 +176,7 @@ const profile = () => {
       <p class="text-gray-500 text-base mb-4">
         {d.description}
       </p>
-      <button type="button" class=" inline-block px-6 py-2.5 bg-yellow-400 text-white font-medium text-xs leading-tight uppercase rounded hover:bg-yellow-500 transition duration-150 ease-in-out">Study</button>
+      <button type="button" class=" inline-block px-6 py-2.5 bg-yellow-400 text-white font-medium text-xs leading-tight uppercase rounded hover:bg-yellow-500 transition duration-150 ease-in-out" onClick={() => {router.push('/dashboard/study/flashcards?id=' + d.deckId)}}>Study</button>
     </div>
     <div class="py-3 px-6 border-t border-blue-600 text-gray-600">
       <DataHelper date={d.created_at}/>
