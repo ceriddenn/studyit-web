@@ -51,12 +51,12 @@ const Header = () => {
     }
 
     return (
-        <nav class="bg-white border-gray-200 px-2 lg:py-4 sm:px-4 py-2.5 dark:bg-gray-800 sticky top-0">
+        <nav class="border-gray-200 px-2 lg:py-4 sm:px-4 py-2.5 bg-gray-800 sticky top-0">
   <div class="container flex flex-wrap justify-between items-center mx-auto">
   <a href="https://studyit.ml" class="flex items-center">
       <img src="https://i.ibb.co/VMvNFzP/logo-transparent-background.png" class="mr-3 h-16 sm:h-16" alt="StudyIt Logo" />
       {showLandingAlert &&
-<div class="hidden lg:flex p-4 text-sm text-gray-700 bg-gray-100 rounded-lg dark:bg-gray-700 dark:text-gray-300" role="alert">
+<div class="hidden lg:flex p-4 text-sm rounded-lg bg-gray-700 text-gray-300" role="alert">
   <span class="font-medium">Alert!&nbsp;</span> {landingAlert}
 </div>}
   </a>
@@ -83,19 +83,19 @@ const Header = () => {
   <div className={(dropdown) ? ("justify-between items-center w-full md:flex md:w-auto md:order-1") : ("hidden justify-between items-center w-full md:flex md:w-auto md:order-1")} id="mobile-menu-2">
     <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
       <li>
-        <a href="/" class={router.pathname == '/' ? "text-1xl font-extrabold block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" : "text-1xl font-extrabold block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"}aria-current="page">Home</a>
+        <a href="/" class={router.pathname == '/' ? "text-1xl font-extrabold block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 text-white" : "text-1xl font-extrabold block py-2 pr-4 pl-3 text-gray-400 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 text-gray-400 md:hover:text-white hover:bg-gray-700 hover:text-white md:hover:bg-transparent border-gray-700"}aria-current="page">Home</a>
       </li>
       <li>
-        <a href="/aboutus" class={router.pathname == '/aboutus' ? "text-1xl font-extrabold block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" : "text-1xl font-extrabold block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"}aria-current="page">About</a>
+        <a href="/aboutus" class={router.pathname == '/aboutus' ? "text-1xl font-extrabold block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" : "text-1xl font-extrabold block py-2 pr-4 pl-3 text-gray-400 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 text-gray-400 md:hover:text-white hover:bg-gray-700 hover:text-white md:hover:bg-transparent border-gray-700"}aria-current="page">About</a>
       </li>
       <li>
-        <a href="/dashboard/home" class={router.pathname == '/dashboard/' ? "text-1xl font-extrabold block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" : "text-1xl font-extrabold block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"}>StudyIt</a>
+        <a href="/dashboard/home" class={router.pathname == '/dashboard/' ? "text-1xl font-extrabold block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" : "text-1xl font-extrabold block py-2 pr-4 pl-3 text-gray-400 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 text-gray-400 md:hover:text-white hover:bg-gray-700 hover:text-white md:hover:bg-transparent border-gray-700"}>StudyIt</a>
       </li>
       <li>
-        <a href="#" class="text-1xl font-extrabold block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Pricing</a>
+        <a href="/pricing" class={router.pathname == '/pricing/' ? "text-1xl font-extrabold block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" : "text-1xl font-extrabold block py-2 pr-4 pl-3 text-gray-400 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 text-gray-400 md:hover:text-white hover:bg-gray-700 hover:text-white md:hover:bg-transparent border-gray-700"}>Pricing</a>
       </li>
       <li>
-        <a href="#" class="text-1xl font-extrabold block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+        <a href="/contactus" class={router.pathname == '/contactus/' ? "text-1xl font-extrabold block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" : "text-1xl font-extrabold block py-2 pr-4 pl-3 text-gray-400 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 text-gray-400 md:hover:text-white hover:bg-gray-700 hover:text-white md:hover:bg-transparent border-gray-700"}>Contact</a>
       </li>
     </ul>
   </div>
