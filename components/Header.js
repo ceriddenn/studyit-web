@@ -51,7 +51,7 @@ const Header = () => {
     }
 
     return (
-        <nav class="bg-white border-gray-200 px-2 lg:py-4 sm:px-4 py-2.5 dark:bg-gray-800">
+        <nav class="bg-white border-gray-200 px-2 lg:py-4 sm:px-4 py-2.5 dark:bg-gray-800 sticky top-0">
   <div class="container flex flex-wrap justify-between items-center mx-auto">
   <a href="https://studyit.ml" class="flex items-center">
       <img src="https://i.ibb.co/VMvNFzP/logo-transparent-background.png" class="mr-3 h-16 sm:h-16" alt="StudyIt Logo" />
