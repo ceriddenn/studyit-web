@@ -14,7 +14,7 @@ const Home = () => {
     <div className=''>
       <Head>
         <title>StudyIt | Landing</title>
-        <link rel="icon" href="https://i.ibb.co/R44bRPW/justlogo.jpg"/>
+        <link rel="icon" href="https://i.ibb.co/jwm6g95/justlogo-removebg-preview.png"/>
       </Head>
       <Header/>
       <Landing/>
