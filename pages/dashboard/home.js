@@ -71,7 +71,8 @@ const home = () => {
   const [description, setDescription] = useState(null)
   const [inputItems, setInputItems] = useState([{ id: uuidv4(), 'term': null, 'definition': null }])
   const [modalErrorMessage, setModalErrorMessage] = useState(null)
-
+  const [blur, setBlur] = useState(false)
+  const [addDisabled, setAddDisabled] = useState(false)
   const [editDeckId, setEditDeckId] = useState(null)
   //end
 
@@ -153,7 +154,7 @@ const home = () => {
       <Sidebar/>
       
     <div className="bg-gray-300 min-h-screen w-full h-full overflow-y-autorelative">
-      <div class={showPopup ? "blur-sm" : ""}>
+      <div class={showPopup ? "blur-sm" : ""} className={blur ? "blur-sm" : ""}>
       <div className="p-8 pt-8">
         <div className="flex flex-row">
     <h1 class="text-2xl p-5">MyDecks</h1>
@@ -194,7 +195,7 @@ const home = () => {
 
       <div className='flex flex-row'>
       <button type="button" class=" inline-block px-6 py-2.5 bg-yellow-400 text-white font-medium text-xs leading-tight uppercase rounded hover:bg-yellow-500 transition duration-150 ease-in-out" onClick={() => {router.push('/dashboard/study/flashcards?id=' + d.deckId)}}>Study</button>
-      <button type="button" class=" inline-block px-6 py-2.5 bg-yellow-400 text-white font-medium text-xs leading-tight uppercase rounded hover:bg-yellow-500 transition duration-150 ease-in-out ml-3" onClick={() => {setEditDeck(true); setEditDeckId(d.deckId)}}>Edit</button>
+      <button type="button" class=" inline-block px-6 py-2.5 bg-yellow-400 text-white font-medium text-xs leading-tight uppercase rounded hover:bg-yellow-500 transition duration-150 ease-in-out ml-3" onClick={() => {setEditDeck(true); setEditDeckId(d.deckId); setBlur(true); setAddDisabled(true)}}>Edit</button>
       </div>
 
     </div>
@@ -261,9 +262,11 @@ const home = () => {
   )}
   
   {editDeck && <EditDeck id={editDeckId}/>}
+  {!addDisabled ? (
 <div class="absolute bottom-0 right-0 mb-8 mr-8 bg-gray-600 rounded-full px-3 py-2 transition ease-in-out delay-150 hover:scale-110 cursor-pointer" onClick={() => setShowPopup(true)}>
     <PlusIcon class="text-white h-5 w-5 cursor-pointer"/>
     </div>
+    ) : ""}
 
     </div>
     </div>}

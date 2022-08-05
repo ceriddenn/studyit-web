@@ -11,9 +11,15 @@ const Landing = () => {
             <div class="mx-auto mt-5 text-gray-500 md:mt-12 md:max-w-lg md:text-center lg:text-lg">A next-gen learning platform designed and developed for students!</div>
             <div class="flex flex-col items-center mt-12 text-center">
                 <span class=" inline-flex w-full md:w-auto">
-                    <a href="/signup" type="button" class=" inline-flex items-center justify-center w-full px-8 py-4 text-base font-bold leading-6 text-white bg-indigo-600 border border-transparent rounded-full md:w-auto hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600">
+                    {session && session.user ? 
+                    <a href="/dashboard/home" type="button" class=" inline-flex items-center justify-center w-full px-8 py-4 text-base font-bold leading-6 text-white bg-blue-600 border border-transparent rounded-full md:w-auto hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600">
+                        Dashboard
+                    </a>
+                    :
+                    <a href="/signup" type="button" class=" inline-flex items-center justify-center w-full px-8 py-4 text-base font-bold leading-6 text-white bg-blue-600 border border-transparent rounded-full md:w-auto hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600">
                         Get Started
                     </a>
+                    }
                 </span>
                 <a href="#_" class="mt-3 text-sm text-indigo-500">Learn More</a>
             </div>
