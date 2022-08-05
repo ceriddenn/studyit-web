@@ -1,6 +1,7 @@
 import React from 'react'
-
+import supabase from '../lib/supabase'
 const Landing = () => {
+    const session = supabase.auth.session()
   return (
     <div>
 <section class="w-full px-6 pb-12 antialiased bg-white" data-tails-scripts="//unpkg.com/alpinejs">
@@ -128,6 +129,12 @@ const Landing = () => {
         </span>
     </div>
 </section>
+{!session ?
+      <div className=" fixed bottom-0 right-0 pb-10 pr-10 rounded-md">
+        <a href="/signup" class="relative px-5 py-3 overflow-hidden font-medium text-white bg-yellow-400 border border-gray-100 rounded-lg shadow-inner group">
+        <span class="relative">Create an account?</span>
+      </a>
+      </div> : ""}
 
     </div>
   )
