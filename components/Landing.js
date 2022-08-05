@@ -1,7 +1,18 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import supabase from '../lib/supabase'
 const Landing = () => {
+    const [sess, setSess] = useState(null)
     const session = supabase.auth.session()
+    useEffect(() => {
+        setSess(session)
+    }, [session])
+    const handleHeroButtonClick = () => {
+        if (sess && sess.user) {
+            window.location.href = '/dashboard/home'
+        } else {
+            window.location.href = '/login'
+        }
+    }
   return (
     <div>
 <section class="w-full px-6 pb-12 antialiased bg-white" data-tails-scripts="//unpkg.com/alpinejs">
@@ -10,16 +21,10 @@ const Landing = () => {
             <h1 class="text-5xl font-extrabold leading-10 tracking-tight text-left text-gray-900 md:text-center sm:leading-none md:text-6xl lg:text-7xl"><span class="inline md:block">Start Studying</span> <span class=" mt-2 text-transparent bg-clip-text bg-gradient-to-br from-indigo-600 to-indigo-500 md:inline-block">The Better Way</span></h1>
             <div class="mx-auto mt-5 text-gray-500 md:mt-12 md:max-w-lg md:text-center lg:text-lg">A next-gen learning platform designed and developed for students!</div>
             <div class="flex flex-col items-center mt-12 text-center">
-                <span class=" inline-flex w-full md:w-auto">
-                    {session && session.user ? 
-                    <a href="/dashboard/home" type="button" class=" inline-flex items-center justify-center w-full px-8 py-4 text-base font-bold leading-6 text-white bg-blue-600 border border-transparent rounded-full md:w-auto hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600">
-                        Dashboard
+                <span class=" inline-flex w-full md:w-auto cursor-pointer">
+                    <a onClick={() => handleHeroButtonClick()} type="button" class="cursor-pointer inline-flex items-center justify-center w-full px-8 py-4 text-base font-bold leading-6 text-white bg-blue-600 border border-transparent rounded-full md:w-auto hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600">
+                        {session && session.user ? "Dashboard" : "Get Started"}
                     </a>
-                    :
-                    <a href="/signup" type="button" class=" inline-flex items-center justify-center w-full px-8 py-4 text-base font-bold leading-6 text-white bg-blue-600 border border-transparent rounded-full md:w-auto hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600">
-                        Get Started
-                    </a>
-                    }
                 </span>
                 <a href="#_" class="mt-3 text-sm text-indigo-500">Learn More</a>
             </div>

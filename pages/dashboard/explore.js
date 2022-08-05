@@ -4,6 +4,7 @@ import supabase from '../../lib/supabase'
 import 'react-toastify/dist/ReactToastify.css'
 import {toast, ToastContainer} from 'react-toastify'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 const explore = () => {
     const router = useRouter()
     const session = supabase.auth.session()
@@ -19,6 +20,11 @@ const explore = () => {
         })
     }
   return (
+    <>
+        <Head>
+        <title>StudyIt | Explore</title>
+        <link rel="icon" href="https://i.ibb.co/sb2psmq/justlogo-removebg-preview-3.png"/>
+      </Head>
     <div className="flex">
         {/* sidebar */}
         <Sidebar/>
@@ -36,6 +42,7 @@ const explore = () => {
         <ToastContainer theme="colored" position="bottom-right"/>
 
     </div>
+    </>
   )
 }
 

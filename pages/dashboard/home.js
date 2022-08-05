@@ -9,6 +9,7 @@ import {v4 as uuidv4} from 'uuid'
 import EditDeck from '../../components/EditDeck'
 import Sidebar from '../../components/Sidebar'
 import Loading from '../../components/Loading'
+import Head from 'next/head'
 const home = () => {
   const delay = ms => new Promise(res => setTimeout(res, ms));
   const [decks, setDecks] = useState([])
@@ -149,6 +150,10 @@ const home = () => {
 
   return (
     <>
+        <Head>
+        <title>StudyIt | Dashboard</title>
+        <link rel="icon" href="https://i.ibb.co/sb2psmq/justlogo-removebg-preview-3.png"/>
+      </Head>
     {loading ? <Loading/> : 
     <div className="flex">
       <Sidebar/>
@@ -157,8 +162,8 @@ const home = () => {
       <div class={showPopup ? "blur-sm" : ""} className={blur ? "blur-sm" : ""}>
       <div className="p-8 pt-8">
         <div className="flex flex-row">
-    <h1 class="text-2xl p-5">MyDecks</h1>
-    <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-4 mr-4" placeholder="Search" onChange={event => {setSearchTerm(event.target.value)}}/>
+    <h1 class="text-2xl p-5 font-semibold">MyDecks</h1>
+    <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-2 py-1 mr-4" placeholder="Search" onChange={event => {setSearchTerm(event.target.value)}}/>
     </div>
 
     {showMsg && 

@@ -15,7 +15,7 @@ const Sidebar = (props) => {
   return (
     <div class="flex">
     <div class="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-gray-800 sticky top-0 left-0">
-        <a class="text-blue-700 text-2xl font-bold cursor-pointer pl-4" href="/">StudyIt</a>
+        <img class="mr-6 cursor-pointer" src="https://i.ibb.co/VMvNFzP/logo-transparent-background.png" alt="Logo" onClick={() => router.push('/')}/>
       <div class="flex flex-col justify-between mt-6">
         <aside>
           <ul class="space-y-3">

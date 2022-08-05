@@ -1,7 +1,12 @@
 import React from 'react'
-import Header from '../components/Header'
+import Head from 'next/head'
 const Custom404 = () => {
   return (
+	<>
+        <Head>
+        <title>StudyIt | 404</title>
+        <link rel="icon" href="https://i.ibb.co/sb2psmq/justlogo-removebg-preview-3.png"/>
+      </Head>
     <div className=''>
         <div>
         <section class="flex items-center h-full p-16 bg-gray-900 text-gray-100 h-screen">
@@ -18,6 +23,7 @@ const Custom404 = () => {
 </section>
         </div>
     </div>
+	</>
   )
 }
 

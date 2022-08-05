@@ -5,6 +5,7 @@ import Sidebar from '../../../components/Sidebar'
 import StudySidebar from '../../../components/StudySidebar'
 import { useRouter } from 'next/router'
 import Loading from '../../../components/Loading'
+import Head from 'next/head'
 const flashcards = () => {
     const router = useRouter()
     const {query} = useRouter()
@@ -75,6 +76,10 @@ const flashcards = () => {
     }
   return (
     <>
+        <Head>
+        <title>Studying with Flashcards</title>
+        <link rel="icon" href="https://i.ibb.co/sb2psmq/justlogo-removebg-preview-3.png"/>
+      </Head>
     {loading ? <Loading /> :
     <div className='flex'>
         <Sidebar id={userID}/>

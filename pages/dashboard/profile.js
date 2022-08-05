@@ -7,6 +7,7 @@ import supabase from '../../lib/supabase'
 import {MinusCircleIcon} from '@heroicons/react/outline'
 import DataHelper from '../../components/DateHelper'
 import {toast, ToastContainer} from 'react-toastify'
+import Head from 'next/head'
 const profile = () => {
   const router = useRouter()
   const {query} = useRouter()
@@ -18,13 +19,20 @@ const profile = () => {
   const [decks, setDecks] = useState([])
   const [sessionId, setSessionId] = useState('')
   const [badges, setBadges] = useState([{}])
+
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+
   useEffect(() =>{
     setLoading(true)
 
     if(!router.isReady) return;
     const query1 = async () => {
       const array = []
-    await supabase.from('Profile').select('*').match({id:userID}).then(res => {
+    await supabase.from('Profile').select('*').match({id:userID}).then(async res => {
+      if (res.error) {
+        toast.error("Error getting user's data. If this re-occurs please contact support@studyit.ml")
+        return;
+      }
       setUserData(res.data[0])
       res.data[0].badges.forEach(bad => {
         array.push(bad)
@@ -38,7 +46,15 @@ const profile = () => {
   setSessionId(sessi.user.id)
   const query2 = async () => {
     const array = []
-    await supabase.from('StudyDeck').select('*').match({deckOwner:userID}).then(res => {
+    await supabase.from('StudyDeck').select('*').match({deckOwner:userID}).then(async res => {
+      if (res.error) {
+        toast.error("Error getting user's decks. If this re-occurs please contact support@studyit.ml")
+        await delay(2000)
+        toast.warning("Redirecting you to the dashboard now...")
+        await delay(5000)
+        router.push('/dashboard/home')
+        return;
+      }
       res.data.forEach(d => {
         array.push(d)
         setUserDeck(userDeck + 1)
@@ -55,6 +71,10 @@ const profile = () => {
 
   return (
     <>
+        <Head>
+        <title>StudyIt | MyProfile</title>
+        <link rel="icon" href="https://i.ibb.co/sb2psmq/justlogo-removebg-preview-3.png"/>
+      </Head>
     {loading ? <Loading/> : 
     <div className="flex">
       {/* sidebar */}
@@ -153,8 +173,9 @@ const profile = () => {
     })}
     </div>
         </div>
-        <ToastContainer theme="colored" position="bottom-right"/>
         </div>}
+        <ToastContainer theme="colored" position="bottom-right"/>
+
     </>
   )
 }
