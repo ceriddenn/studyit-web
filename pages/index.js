@@ -5,6 +5,7 @@ import supabase from '../lib/supabase'
 import { useEffect } from 'react'
 import Header from '../components/Header'
 import { BsHandThumbsDownFill } from 'react-icons/bs'
+import Landing from '../components/Landing'
 const Home = () => {
   const router = useRouter()
   const session = supabase.auth.session()
@@ -15,7 +16,7 @@ const Home = () => {
         <title>StudyIt | Landing</title>
       </Head>
       <Header/>
-
+      <Landing/>
       {!session ?
       <div className="absolute bottom-0 right-0 pb-10 pr-10 rounded-md">
         <a href="/signup" class="relative px-5 py-3 overflow-hidden font-medium text-white bg-yellow-400 border border-gray-100 rounded-lg shadow-inner group">
