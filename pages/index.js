@@ -14,11 +14,10 @@ const Home = () => {
     <div className=''>
       <Head>
         <title>StudyIt | Landing</title>
-        <link rel="icon" href="https://i.ibb.co/jwm6g95/justlogo-removebg-preview.png"/>
+        <link rel="icon" href="https://i.ibb.co/sb2psmq/justlogo-removebg-preview-3.png"/>
       </Head>
       <Header/>
       <Landing/>
-
     </div>
   )
 }

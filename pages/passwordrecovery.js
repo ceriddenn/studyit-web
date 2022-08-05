@@ -4,6 +4,7 @@ import {BsArrowLeft} from 'react-icons/bs'
 import 'react-toastify/dist/ReactToastify.css';
 import {toast, ToastContainer} from 'react-toastify'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 const passwordrecovery = () => {
     const [token, setToken] = useState(null)
     const router = useRouter()
@@ -46,17 +47,22 @@ const passwordrecovery = () => {
         if (result.error == 'Invalid token: token contains an invalid number of segments') {
             toast.error('The reset link has expired, please create a new one.')
         } else {
-            toast.error('You need to provide a password with a minimum of 6 characters.')
+            toast.error('You need to provide a password with a minimum of 8 characters.')
         }
     }
   }
   
 
   return (
+    <>
+      <Head>
+        <title>StudyIt | Recovery</title>
+        <link rel="icon" href="https://i.ibb.co/sb2psmq/justlogo-removebg-preview-3.png"/>
+      </Head>
     <div class="min-h-screen flex flex-col items-center justify-center bg-gray-300">
   <div class="flex flex-col bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
   <BsArrowLeft class="text-2xl cursor-pointer rounded-lg hover:text-gray-600" onClick={() => router.push('/login')}/>
-    <div class="font-medium self-center text-xl sm:text-2xl uppercase text-gray-800">Reset Password</div>
+    <div class="font-medium self-center text-xl sm:text-2xl uppercase text-gray-800">Reset Password {query.type}</div>
     <div class="mt-10">
       <form action="#" onSubmit={event => handleReset(event)}>
         <div class="flex flex-col mb-6">
@@ -84,6 +90,7 @@ const passwordrecovery = () => {
   </div>
   <ToastContainer theme="colored" position="bottom-right"/>
   </div>
+  </>
   )
 }
 

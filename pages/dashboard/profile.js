@@ -125,10 +125,10 @@ const profile = () => {
         <div className="">
         <h1 className="font-semibold text-2xl ml-8 mt-6">{userID != sessionId ? userData.username + "'s Decks" : "My Decks"}</h1>
         </div>
-        <div className="flex flex-row flex-wrap mt-8 bg-gray-700 p-3 shadow-sm rounded-lg ml-8 mt-2 mr-8 mb-4">
+        <div className="flex flex-row flex-wrap mt-8 bg-gray-700 shadow-sm rounded-lg ml-8 mt-2 mr-8 mb-4">
         {decks.map(d => {
       return (
-        <div className='pr-4 mt-4'>
+        <div className='pr-4 mt-4 p-3'>
         <div key={d.deckId}>
           <div class="flex justify-left">
   <div class="block rounded-lg shadow-lg bg-gray-800 max-w-sm">

@@ -4,6 +4,7 @@ import {BsArrowLeft} from 'react-icons/bs'
 import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify'
 import supabase from '../lib/supabase'
+import Head from 'next/head'
 const passwordreset = () => {
   const router = useRouter()
   const handleReset = async (event) => {
@@ -26,6 +27,11 @@ const passwordreset = () => {
   }
 
   return (
+    <>
+      <Head>
+        <title>StudyIt | Reset</title>
+        <link rel="icon" href="https://i.ibb.co/sb2psmq/justlogo-removebg-preview-3.png"/>
+      </Head>
     <div class="min-h-screen flex flex-col items-center justify-center bg-gray-300">
   <div class="flex flex-col bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
   <BsArrowLeft class="text-2xl cursor-pointer rounded-lg hover:text-gray-600" onClick={() => router.push('/login')}/>
@@ -60,6 +66,7 @@ const passwordreset = () => {
   <ToastContainer theme="colored" position="bottom-right"/>
 
   </div>
+  </>
   )
 }
 
