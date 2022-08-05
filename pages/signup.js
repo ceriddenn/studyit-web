@@ -21,7 +21,17 @@ const signup = () => {
         const password = event.target.password.value
         const username = event.target.username.value
         const confirm_password = event.target.confirmpassword.value
-        
+        const firstname = event.target.firstname.value
+        const lastname = event.target.lastname.value
+
+        if (!firstname) {
+          toast.error("Please enter your first name")
+          return;
+        }
+        if (!lastname) {
+          toast.error("Please enter your last name")
+          return;
+        }
         if (email) {
         if (password == confirm_password) {
             await supabase.auth.signUp({email: email, password: password}).then(async res => {
@@ -46,7 +56,10 @@ const signup = () => {
                     id: res.user.id,
                     email: res.user.email,
                     username: username.toLowerCase(),
+                    firstname: firstname,
+                    lastname: lastname,
                     avatarURL: 'https://cdn.iconscout.com/icon/free/png-256/account-avatar-profile-human-man-user-30448.png',
+                    badges: [{}],
                   }
                   await supabase.from('Profile').upsert(newProfile).then(res => {
                     if (res) {
@@ -122,6 +135,32 @@ const signup = () => {
   
               <input id="username" type="text" name="username" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Username" />
             </div>
+          </div>
+          <div className='flex flex-row gap-2'>
+          <div class="flex flex-col mb-6">
+            <label for="firstname" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">First Name</label>
+            <div class="relative">
+              <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+                <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                  <path d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                </svg>
+              </div>
+  
+              <input id="firstname" type="text" name="firstname" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="First Name" />
+            </div>
+          </div>
+          <div class="flex flex-col mb-6">
+            <label for="lastname" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Last Name</label>
+            <div class="relative">
+              <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+                <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                  <path d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                </svg>
+              </div>
+  
+              <input id="lastname" type="text" name="lastname" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Last Name" />
+            </div>
+          </div>
           </div>
           <div class="flex flex-col mb-6">
             <label for="password" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Password:</label>

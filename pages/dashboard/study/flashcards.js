@@ -15,6 +15,8 @@ const flashcards = () => {
     const [num, setNum] = useState(0)
     const [isDone, setIsDone] = useState(false)
     const [loading, setLoading] = useState(false)
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
     useEffect(() => {
         if (!router.isReady) return
         setLoading(true)
@@ -63,6 +65,14 @@ const flashcards = () => {
             setShowBack(true)
         }
     }
+    const handleRepeat = async (event) => {
+        event.preventDefault()
+        setNum(0)
+        setIsDone(false)
+        await delay()
+        setShowBack(false)
+
+    }
   return (
     <>
     {loading ? <Loading /> :
@@ -79,7 +89,7 @@ const flashcards = () => {
                         <div class="flex flex-col space-x-4 items-center">
                             {!isDone ?
                             <h1 className='text-white text-2xl font-extrabold'>{!showBack ? contents[num] && contents[num].term : contents[num] && contents[num].definition}</h1> :
-                            <h1 className='text-white text-2xl font-extrabold '>This is the end. <span className='text-blue-600 text-2xl font-extrabold underline cursor-pointer' onClick={event => {setIsDone(false); window.location.reload(); setShowBack(false);}}>Repeat?</span></h1>
+                            <h1 className='text-white text-2xl font-extrabold '>This is the end. <span className='text-blue-600 text-2xl font-extrabold underline cursor-pointer' onClick={event => {handleRepeat(event)}}>Repeat?</span></h1>
                             }
                         </div>
                     </div>

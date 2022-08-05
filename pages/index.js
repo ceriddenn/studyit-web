@@ -5,13 +5,15 @@ import supabase from '../lib/supabase'
 import { useEffect } from 'react'
 import Header from '../components/Header'
 import { BsHandThumbsDownFill } from 'react-icons/bs'
-
 const Home = () => {
   const router = useRouter()
   const session = supabase.auth.session()
  
   return (
     <div>
+      <Head>
+        <title>StudyIt | Landing</title>
+      </Head>
       <Header/>
 
       {!session ?
