@@ -11,6 +11,15 @@ const signup = () => {
 
     const router = useRouter()
     const [show, setShow] = useState(false)
+
+    //BETA VARS
+
+    
+    const [isBeta, setIsBeta] = useState(false)
+    const [error, setError] = useState(false)
+    const [success, setSuccess] = useState(false)
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
     async function handleGoBack(event) {
       event.preventDefault()
       router.push('/login')
@@ -91,6 +100,7 @@ const signup = () => {
         router.push('/login')
     }
     useEffect(() => {
+      setIsBeta(false)
       const session = supabase.auth.session()
       if (session) {
         router.push("/")
@@ -100,12 +110,55 @@ const signup = () => {
 
     }, [])
 
+    const checkIfBeta = async (event) => {
+      //query supabase
+      event.preventDefault()
+      const clientname = event.target.clientname.value
+      const access_token = event.target.beta_token.value
+      await supabase.from('BetaUsers').select('*').match( {clientname: clientname,betaToken: access_token} ).then(async res => {
+        if (res.data.length == 0) {
+          setSuccess(false)
+          setError(true)
+          return;
+        } else {
+          setError(false)
+          setSuccess(true)
+          await delay(4000)
+          setIsBeta(true)
+          return;
+        }
+      })
+    }
+
     return (
       <>
+      
         <Head>
         <title>StudyIt | SignUp</title>
         <link rel="icon" href="https://i.ibb.co/sb2psmq/justlogo-removebg-preview-3.png"/>
       </Head>
+      {!isBeta? <div>
+        <div class="h-screen flex flex-col justify-center items-center">
+          <span className='text-black font-bold text-lg'>Enter your clientname and beta token</span>
+          <h1 className='text-black font-semibold text-md break-all'>The clientname is the name you applied for beta access with (must be 100% correct to gain access to signup). 
+          <br/> The beta token is the beta key you recieved in an email or by a StudyIt team member in our discord server.</h1>
+          <div>
+            <form className='space-y-6 mt-6' onSubmit={event => checkIfBeta(event)}>
+            <input type="text" id="clientname" class="bg-gray-300 shadow-md border border-blue-500 text-black placeholder-black text-sm rounded-lg block w-full p-2.5" placeholder="Client Name"/>
+            <input type="password" id="beta_token" class="bg-gray-300 shadow-md border border-blue-500 text-black placeholder-black text-sm rounded-lg block w-full p-2.5" placeholder="Beta Token"/>
+            {success &&
+            <p class="mt-2 text-sm text-green-600 text-green-500"><h1 class="font-medium">Success!</h1> The provided info was found to be correct, <br/> redirecting you to signup...</p>}
+            {error &&
+            <p class="mt-2 text-sm text-red-600 text-red-500"><span class="font-medium">An error occured!</span> The provided info was found to be incorrect, <br/> if this keep occuring please contact support@studyit.ml</p>}
+            
+            <div className='justify-center flex'>
+            <button className='text-white bg-yellow-400 px-4 py-2 rounded-md'>Submit</button>
+            </div>
+            </form>
+          </div>
+
+        </div>
+      </div> : 
     <div class="min-h-screen flex flex-col items-center justify-center bg-gray-300">
     <div class="flex flex-col bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
       {show ? <BsArrowLeft class="text-2xl cursor-pointer rounded-lg hover:text-gray-600" onClick={handleGoBack}/> : ""}
@@ -222,7 +275,8 @@ const signup = () => {
       </div>
     </div>
     <ToastContainer theme="colored" position="bottom-right"/>
-  </div>
+  </div>}
+
   </>
   )
 }

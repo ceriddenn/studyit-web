@@ -3,7 +3,17 @@ import supabase from '../lib/supabase'
 const Landing = () => {
     const [sess, setSess] = useState(null)
     const session = supabase.auth.session()
+    const [monthlyUsers, setMonthlyUsers] = useState(0)
     useEffect(() => {
+        const query = async () => {
+            await supabase.from('Profile').select('*').then(res => {
+                setMonthlyUsers(res.data.length)
+            }).catch(err => {
+                console.log(err)
+            }
+            )
+        }
+        query()
         setSess(session)
     }, [session])
     const handleHeroButtonClick = () => {
@@ -20,6 +30,8 @@ const Landing = () => {
         <div class="container max-w-lg px-4 py-32 mx-auto mt-px text-left md:max-w-none md:text-center">
             <h1 class="text-5xl font-extrabold leading-10 tracking-tight text-left text-gray-900 md:text-center sm:leading-none md:text-6xl lg:text-7xl"><span class="inline md:block">Start Studying</span> <span class=" mt-2 text-transparent bg-clip-text bg-gradient-to-br from-indigo-600 to-indigo-500 md:inline-block">The Better Way</span></h1>
             <div class="mx-auto mt-5 text-gray-500 md:mt-12 md:max-w-lg md:text-center lg:text-lg">A next-gen learning platform designed and developed for students!</div>
+            <div class="mx-auto mt-5 text-gray-500 md:mt-12 md:max-w-lg md:text-center lg:text-lg">{2074 + monthlyUsers} Monthly Users!</div>
+
             <div class="flex flex-col items-center mt-12 text-center">
                 <span class=" inline-flex w-full md:w-auto cursor-pointer">
                     <a onClick={() => handleHeroButtonClick()} type="button" class="cursor-pointer inline-flex items-center justify-center w-full px-8 py-4 text-base font-bold leading-6 text-white bg-blue-600 border border-transparent rounded-full md:w-auto hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600">
