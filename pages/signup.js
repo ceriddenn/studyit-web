@@ -26,7 +26,12 @@ const signup = () => {
     }
     async function handleSignup(event) {
         event.preventDefault();
-        
+        if (localStorage.getItem('betatoken').length > 0) {
+          const token = localStorage.getItem('betatoken')
+          await supabase.from('BetaUsers').delete().match({betaToken:token}).then(async res => {
+            console.log(res)
+          })
+        }
         const email = event.target.email.value
         const password = event.target.password.value
         const username = event.target.username.value
@@ -115,6 +120,7 @@ const signup = () => {
       event.preventDefault()
       const clientname = event.target.clientname.value
       const access_token = event.target.beta_token.value
+      localStorage.setItem('betatoken', access_token)
       await supabase.from('BetaUsers').select('*').match( {clientname: clientname,betaToken: access_token} ).then(async res => {
         if (res.data.length == 0) {
           setSuccess(false)
