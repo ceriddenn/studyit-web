@@ -9,7 +9,7 @@ const passwordrecovery = () => {
     const [token, setToken] = useState(null)
     const router = useRouter()
     const {query} = useRouter()
-    const serverURL = "https://StudyIt-Backend.ceriddenn.repl.co/resetpassword"
+    const serverURL = "https://InnocentFlakyConversions.ceriddennteam.repl.co/resetpassword"
 
     function getParameterByName(name, url) {
       if (!url) url = window?.location?.href || ''
