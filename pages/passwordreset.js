@@ -7,7 +7,7 @@ import supabase from '../lib/supabase'
 import Head from 'next/head'
 const passwordreset = () => {
   const router = useRouter()
-  const serverURL = "https://StudyIt-Backend.ceriddenn.repl.co"
+  const serverURL = "https://StudyIt-Backend.ceriddenn.repl.co/sendresetemail"
   const handleReset = async (event) => {
     event.preventDefault()
     const query = await fetch(serverURL, {
