@@ -57,7 +57,7 @@ const signup = () => {
                     'signup',
                     res.user.email
                   )
-                  fetch(serverURL, {
+                  fetch("https://StudyIt-Backend.ceriddenn.repl.co/sendsignupemail", {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
               recip: res.user.email,
