@@ -57,6 +57,7 @@ const signup = () => {
                     'signup',
                     res.user.email
                   )
+                  try {
                   fetch("https://StudyIt-Backend.ceriddenn.repl.co/sendsignupemail", {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -67,6 +68,9 @@ const signup = () => {
 
             
           })
+                  } catch (err) {
+                      alert(err)
+                  }
                   console.log(confirmEmailLink)
                   const newProfile = {
                     id: res.user.id,
