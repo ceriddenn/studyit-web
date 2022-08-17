@@ -9,6 +9,7 @@ const passwordrecovery = () => {
     const [token, setToken] = useState(null)
     const router = useRouter()
     const {query} = useRouter()
+    const serverURL = "https://StudyIt-Backend.ceriddenn.repl.co/resetpassword"
 
     function getParameterByName(name, url) {
       if (!url) url = window?.location?.href || ''
@@ -28,7 +29,7 @@ const passwordrecovery = () => {
   
   const handleReset = async (event) => {
     event.preventDefault();
-    const resetF = await fetch('https://InnocentFlakyConversions.ceriddennteam.repl.co/resetpassword', {
+    const resetF = await fetch(serverURL, {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
               token: token,
