@@ -19,7 +19,7 @@ const signup = () => {
     const [error, setError] = useState(false)
     const [success, setSuccess] = useState(false)
     const delay = ms => new Promise(res => setTimeout(res, ms));
-    const serverURL = "https://StudyIt-Backend.ceriddenn.repl.co"
+    const serverURL = "https://StudyIt-Backend.ceriddenn.repl.co/sendsignupemail"
 
     async function handleGoBack(event) {
       event.preventDefault()
