@@ -16,7 +16,7 @@ const home = () => {
   const [error, setError] = useState(false)
   const [showMsg, setShowMsg] = useState(false)
   const router = useRouter()
-
+  const [checked, setChecked] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const session = supabase.auth.session()
@@ -108,7 +108,7 @@ const home = () => {
       return;
       
     } else {
-    await supabase.from('StudyDeck').insert({deckName: name, description: description, contents: inputItems, deckOwner: session.user.id}).then(async res => {
+    await supabase.from('StudyDeck').insert({deckName: name, description: description, contents: inputItems, deckOwner: session.user.id, isDeckPublic: checked}).then(async res => {
       if (res.error) {
         setError(true)
         setShowMsg(true)
@@ -145,8 +145,16 @@ const home = () => {
   // editing deck logic
 
 
-
+ 
   //end
+  const handleIsPublic = (event) => {
+    event.preventDefault()
+    if (checked) {
+      setChecked(false)
+    } else {
+      setChecked(true)
+    }
+  }
 
   return (
     <>
@@ -233,7 +241,11 @@ const home = () => {
                           <label class="block mb-2 text-sm font-medium text-gray-300">Deck Description</label>
                           <input type="text" id="deck-description" class="bg-gray-50 border border-gray-300 text-white text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 text-white" placeholder="A brief description of this deck" onChange={event => setDescription(event.target.value)}/>
                       </div>
-      
+                      <label for="checked-toggle" class="inline-flex relative items-center cursor-pointer">
+                        <input type="checkbox" value="" id="checked-toggle" class="sr-only peer" checked={checked}/>
+                        <div onClick={event => handleIsPublic(event)} class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Make this deck public?</span>
+                      </label>
                       <div>
                           <label for="password" class="block mb-2 text-sm font-medium text-gray-300">Deck Owner</label>
                           <input type="text" placeholder={session.user.id.slice(0, -12) + "************"} class="bg-gray-900 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-500 border-gray-500 placeholder-gray-400 text-white" disabled/>

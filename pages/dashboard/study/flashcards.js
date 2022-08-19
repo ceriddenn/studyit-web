@@ -17,9 +17,9 @@ const flashcards = () => {
     const [isDone, setIsDone] = useState(false)
     const [loading, setLoading] = useState(false)
     const delay = ms => new Promise(res => setTimeout(res, ms));
-
     useEffect(() => {
         if (!router.isReady) return
+
         setLoading(true)
         const query = async () => {
             const array1 = []
@@ -76,10 +76,6 @@ const flashcards = () => {
     }
   return (
     <>
-        <Head>
-        <title>Studying with Flashcards</title>
-        <link rel="icon" href="https://i.ibb.co/sb2psmq/justlogo-removebg-preview-3.png"/>
-      </Head>
     {loading ? <Loading /> :
     <div className='flex'>
         <Sidebar id={userID}/>
