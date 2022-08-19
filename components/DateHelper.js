@@ -4,7 +4,7 @@ const DataHelper = ({date}) => {
     const time = new Date(date).toISOString().toLocaleString('zh-TW').slice(0, -14)
   return (
     <div>
-      <h1 className="text-white">Created on {time}</h1>
+      <h1 className="text-white">Created on {time && time}</h1>
     </div>
   )
 }
