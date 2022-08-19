@@ -76,12 +76,12 @@ const initiateEdit = async (event) => {
     setError('No deck description was provided.')
     return;
   }
-  if (deckContents.length < 1) {
+  if (deckContents.length <= 3 ) {
     console.log('k')
-    setError('Please add a term/definition.')
+    setError('Please add a term/definition. You may need at least 4 sets.')
     return;
   }
-  if (deckContents.length > 0) {
+  if (deckContents.length >= 3) {
     if (deckContents[0].term && deckContents[0].definition) { 
     setError(null)
   await supabase.from('StudyDeck').update({deckName: deckData[0].deckName, description: deckData[0].description, contents: deckContents, isDeckPublic: checked}).match({deckId:props.id}).then(res => {
@@ -93,7 +93,7 @@ const initiateEdit = async (event) => {
     }
   })
 } else {
-  setError("A term/definition wasn't provided")
+  setError("A term/definition wasn't provided. You may need at least 4 sets.")
 }
   }
 }

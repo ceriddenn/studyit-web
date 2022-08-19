@@ -88,9 +88,9 @@ const home = () => {
   const handleDeckCreation = async (event) => {
     setModalErrorMessage(null)
     event.preventDefault()
-    if (inputItems.length < 1) {
+    if (inputItems.length <= 3) {
       setModalErrorMessage('')
-      setModalErrorMessage('A term and definition are required to create a deck.')
+      setModalErrorMessage('A term and definition are required to create a deck. You need at least 4')
       return;
     }
 
