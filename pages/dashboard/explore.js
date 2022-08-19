@@ -9,9 +9,11 @@ import {MinusCircleIcon} from '@heroicons/react/outline'
 import DataHelper from '../../components/DateHelper'
 import { getSourceMapRange } from 'typescript'
 import Userlib from '../../lib/Userlib'
+import Loading from '../../components/Loading'
 const explore = () => {
     const router = useRouter()
     const session = supabase.auth.session()
+    const [loading, setLoading] = useState(false)
     const [decks, setDecks] = useState([])
     const findSomeone = async (event) => {
         event.preventDefault();
@@ -25,6 +27,7 @@ const explore = () => {
         })
     }
     useEffect(() => {
+        setLoading(true)
         async function query() {
             const array1 = []
             await supabase.from('StudyDeck').select('*').match({isDeckPublic: true}).then(res => {
@@ -35,6 +38,7 @@ const explore = () => {
         })
         setDecks(array1)
 
+        setLoading(false)
 
     }
         query()
@@ -45,11 +49,14 @@ const explore = () => {
         <title>StudyIt | Explore</title>
         <link rel="icon" href="https://i.ibb.co/sb2psmq/justlogo-removebg-preview-3.png"/>
       </Head>
+      {loading ? <Loading/> : 
     <div className="flex">
         {/* sidebar */}
         <Sidebar/>
         <div className="bg-gray-300 min-h-screen w-full h-full overflow-y-auto relative p-8">
             <h1 className='p-3 pt-8 text-black font-semibold text-2xl'>Community Decks</h1>
+            <div className="flex flex-row flex-wrap overflow-hidden">
+
         {decks && decks.map(d => {
       return (
         <div className='pr-4 mt-4 p-3' key={d.deckId}>
@@ -78,6 +85,7 @@ const explore = () => {
 </div>
       )
     })}
+    </div>
             <div className="absolute top-0 right-0">
             <form onSubmit={event => findSomeone(event)}>
             <input type="text" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-4 mr-4" placeholder="Find Someone"/>
@@ -87,7 +95,7 @@ const explore = () => {
         </div>
         <ToastContainer theme="colored" position="bottom-right"/>
 
-    </div>
+    </div>}
     </>
   )
 }
