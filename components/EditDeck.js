@@ -3,24 +3,33 @@ import supabase from '../lib/supabase'
 import {useRouter} from 'next/router'
 import {v4 as uuidv4} from 'uuid'
 import {PlusIcon, MinusIcon} from '@heroicons/react/outline'
+import Loading from './Loading'
+import { BounceLoader } from 'react-spinners'
+
 const EditDeck = (props) => {
   const [deckData, setDeckData] = useState([{}])
   const [deckContents, setDeckContents] = useState([{}])
   const router = useRouter()
   const session = supabase.auth.session()
+  const [isLoading, setIsLoading] = useState(false)
 
-  const [error, setError] = useState(null)
+
+  const [error, setError] = useState("")
+  const [checked, setChecked] = useState(false)
 
   useEffect(() =>{
+    setIsLoading(true)
     setError(null)
     async function query() {
       await supabase.from('StudyDeck').select('*').match({deckId:props.id}).then(res => {
         setDeckData(res.data)
         setDeckContents(res.data[0].contents)
+        const isChecked = res.data[0].isDeckPublic;
+        setChecked(isChecked)
       })
     }
     query()
-
+    setIsLoading(false)
   }, [])
 
   const addInput = () => {
@@ -75,7 +84,7 @@ const initiateEdit = async (event) => {
   if (deckContents.length > 0) {
     if (deckContents[0].term && deckContents[0].definition) { 
     setError(null)
-  await supabase.from('StudyDeck').update({deckName: deckData[0].deckName, description: deckData[0].description, contents: deckContents}).match({deckId:props.id}).then(res => {
+  await supabase.from('StudyDeck').update({deckName: deckData[0].deckName, description: deckData[0].description, contents: deckContents, isDeckPublic: checked}).match({deckId:props.id}).then(res => {
     if (res.error) {
       setError('An error occured while connecting to the database. Please try again.')
       return;
@@ -89,8 +98,18 @@ const initiateEdit = async (event) => {
   }
 }
 
+  const handleIsPublic = (event) => {
+    event.preventDefault()
+    if (checked) {
+      setChecked(false)
+    } else {
+      setChecked(true)
+    }
+  }
+
 
   return (
+    <>
     <div class="flex justify-center overflow-y-auto overflow-x-hidden absolute top-0 right-0 left-0 bottom-0">
     <div class="relative p-4 w-full max-w-md h-full md:h-auto">
         <div class="relative rounded-lg shadow bg-gray-800">
@@ -103,6 +122,8 @@ const initiateEdit = async (event) => {
                 <form class="space-y-6 " onSubmit={event => initiateEdit(event)}>
                 {deckData.map(d => (
                   <div>
+                    {isLoading ? <BounceLoader loading={true} size="120" color="#facc15"/> :
+                    <div>
                     <div>
                         <label class="block mb-2 text-sm font-medium text-gray-300">Deck Name</label>
                         <input type="text" id="deck-name" class="bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder={d.deckName} onChange={event => handleChangeInput1(d.deckId, event.target.value, "deckName")}/>
@@ -111,11 +132,16 @@ const initiateEdit = async (event) => {
                         <label class="block mb-2 text-sm font-medium text-gray-300">Deck Description</label>
                         <input type="text" id="deck-description" class="bg-gray-50 border border-gray-300 text-white text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 text-white" placeholder={d.description} onChange={event => handleChangeInput1(d.deckId, event.target.value, "description")}/>
                     </div>
-    
+                    <label for="checked-toggle" class="inline-flex relative items-center cursor-pointer mt-3">
+                        <input type="checkbox" value="" id="checked-toggle" class="sr-only peer" checked={checked}/>
+                        <div onClick={event => handleIsPublic(event)} class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">{checked ? "Hide this deck from public" : "Make this deck public"}</span>
+                      </label>
                     <div>
                         <label for="password" class="block mb-2 text-sm font-medium text-gray-300">Deck Owner</label>
                         <input type="text" placeholder={session.user.id.slice(0, -12) + "************"} class="bg-gray-900 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-500 border-gray-500 placeholder-gray-400 text-white" disabled/>
                     </div>
+                    </div>}
                     </div>))}
                     <div class="flex flex-row">
                     <h1 class="text-2xl font-bold text-white">Content</h1>
@@ -142,7 +168,8 @@ const initiateEdit = async (event) => {
             </div>
         </div>
     </div>
-</div> 
+</div>
+</>
   )
 }
 

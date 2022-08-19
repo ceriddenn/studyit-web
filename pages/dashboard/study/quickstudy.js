@@ -103,7 +103,9 @@ const quickstudy = () => {
       }
       if (newNum === originalDeck.contents.length) {
         setFinished(true)
+        //redo this algorithm to get the final score
         setFinalScore(Math.round(upS / firstScore * 100))
+        //
       } else {
       const data = getTwoRandomElements(originalDeck.contents, newNum)
       setQuestionAnswers(data)
