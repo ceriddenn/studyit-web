@@ -31,6 +31,7 @@ const profile = () => {
     const query1 = async () => {
       const array = []
     await supabase.from('Profile').select('*').match({id:userID}).then(async res => {
+      console.log(res)
       if (res.error) {
         toast.error("Error getting user's data. If this re-occurs please contact support@studyit.ml")
         return;
@@ -68,7 +69,7 @@ const profile = () => {
     })
   }
   query2()
-  }, [router.isReady])
+  }, [router.isReady, session])
 
   const changePfp = async (event) => {
     event.preventDefault()
