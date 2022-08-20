@@ -24,7 +24,7 @@ const profile = () => {
 
   useEffect(() =>{
     setLoading(true)
-    if (!session && session.user) {
+    if (!session && !session.user) {
       router.push('/login')
     }
     if(!router.isReady) return;
