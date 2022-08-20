@@ -12,7 +12,7 @@ const profile = () => {
   const router = useRouter()
   const {query} = useRouter()
   const userID = query.id;
-
+  const session = supabase.auth.session()
   const [userData, setUserData] = useState({})
   const [loading, setLoading] = useState(false)
   const [userDeck, setUserDeck] = useState(0)
@@ -68,6 +68,33 @@ const profile = () => {
   query2()
   }, [router.isReady])
 
+  const changePfp = async (event) => {
+    event.preventDefault()
+    const files = event.target.files;
+    const file = files[0];
+    if (!file.name.match(/.(jpg|jpeg|png|gif)$/i)) {
+      toast.error("Please upload a file that ends in .jpg, .jpeg, .png or .gif")
+      return;
+    }
+    getBase64(file)
+  }
+  const onLoad = async (fileString) => {
+    await supabase.from('Profile').update({avatarURL: fileString}).match({id:session.user.id}).then(async res => {
+      if (res.error) {
+        toast.error("Error updating your profile picture.")
+      } else {
+        toast.success("Profile picture updated successfully.")
+        window.location.reload()
+      }
+    })
+  }
+  const getBase64 = (file) => {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      onLoad(reader.result)
+    }
+  }
 
   return (
     <>
@@ -124,20 +151,32 @@ const profile = () => {
                                 <div class="px-4 py-2 font-semibold">Username</div>
                                 <div class="px-4 py-2">{userData && userData.username}</div>
                             </div>
-                        </div>
-                        <div className='flex flex-row'>
+                            <div className='flex flex-row'>
                           <div className='flex flex-col'>
-                          <h1 className='text-white font-semibold text-md ml-4 mt-2'>Profile Info</h1>
-                          <img className='border-1 border-blue-600 h-24 w-24 rounded-full ml-2 mt-2' alt='' src='https://cdn.vox-cdn.com/thumbor/QAlwO040t1-7mFhTs9oYtXdIwAo=/0x0:1920x1080/1200x800/filters:focal(807x387:1113x693)/cdn.vox-cdn.com/uploads/chorus_image/image/71100308/kirby.0.jpg'/>
+                          <h1 className='text-white font-semibold text-md ml-4 mt-2 pr-2'>Profile Info</h1>
+
+                          <img className='border-1 border-blue-600 h-24 w-24 rounded-full ml-4 mb-2 mt-2' alt='' src={userData.avatarURL}/>
+                          <label className='px-4 py-2 bg-blue-600 ml-4 rounded-md cursor-pointer text-md'>
+                            Upload Avatar
+                          <input type="file" onChange={event => changePfp(event)} className="hidden"/>
+                          </label>
+                          <h1 className='px-4 py-2 font-semibold mb-1'>Badges</h1>
                           </div>
+                          
+                        </div>
+                        
+                        </div>
+                        <div className='flex flex-row flex-wrap'>
                           {badges && badges.map(badge => {
                             return (
-                          <div class="px-6 pt-4 pb-2">
-                              <span class="inline-block bg-yellow-400 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{badge.name ? badge.name :  "No Badges Found"}</span>
+                              
+                          <div class="mb-4 ml-4">
+                              <span class="bg-yellow-400 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{badge.name ? badge.name :  "No Badges Found"}</span>
                           </div>
                             )
                         })}
                         </div>
+      
                     </div>
                 </div>
                 </div>
