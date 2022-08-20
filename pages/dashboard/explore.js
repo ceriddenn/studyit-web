@@ -28,6 +28,9 @@ const explore = () => {
     }
     useEffect(() => {
         setLoading(true)
+        if (!session && session.user) {
+          router.push('/login')
+        }
         async function query() {
             const array1 = []
             await supabase.from('StudyDeck').select('*').match({isDeckPublic: true}).then(res => {
