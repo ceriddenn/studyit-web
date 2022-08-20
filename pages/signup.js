@@ -81,6 +81,7 @@ const signup = () => {
                     lastname: lastname,
                     avatarURL: 'https://cdn.iconscout.com/icon/free/png-256/account-avatar-profile-human-man-user-30448.png',
                     badges: [{}],
+                    betaKey: token,
                   }
                   await supabase.from('Profile').upsert(newProfile).then(res => {
                     if (res) {
