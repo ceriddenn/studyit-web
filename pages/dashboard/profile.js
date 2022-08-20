@@ -24,10 +24,10 @@ const profile = () => {
 
   useEffect(() =>{
     setLoading(true)
-    if (!session && !session.user) {
+    if(!router.isReady) return;
+    if (!session.user) {
       router.push('/login')
     }
-    if(!router.isReady) return;
     const query1 = async () => {
       const array = []
     await supabase.from('Profile').select('*').match({id:userID}).then(async res => {
