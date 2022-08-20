@@ -30,7 +30,7 @@ const Landing = () => {
         <div class="container max-w-lg px-4 py-32 mx-auto mt-px text-left md:max-w-none md:text-center">
             <h1 class="text-5xl font-extrabold leading-10 tracking-tight text-left text-gray-900 md:text-center sm:leading-none md:text-6xl lg:text-7xl"><span class="inline md:block">Start Studying</span> <span class=" mt-2 text-transparent bg-clip-text bg-gradient-to-br from-indigo-600 to-indigo-500 md:inline-block">The Better Way</span></h1>
             <div class="mx-auto mt-5 text-gray-500 md:mt-12 md:max-w-lg md:text-center lg:text-lg">A next-gen learning platform designed and developed for students!</div>
-            <div class="mx-auto mt-5 text-gray-500 md:mt-12 md:max-w-lg md:text-center lg:text-lg">{2074 + monthlyUsers} Monthly Users!</div>
+            <div class="mx-auto mt-5 text-gray-500 md:mt-12 md:max-w-lg md:text-center lg:text-lg">{monthlyUsers && monthlyUsers} Monthly Users!</div>
 
             <div class="flex flex-col items-center mt-12 text-center">
                 <span class=" inline-flex w-full md:w-auto cursor-pointer">
