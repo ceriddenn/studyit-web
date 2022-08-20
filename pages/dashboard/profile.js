@@ -171,7 +171,7 @@ const profile = () => {
                             return (
                               
                           <div class="mb-4 ml-4">
-                              <span class="bg-cyan-700 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mb-2">{badge.name ? badge.name :  "No Badges Found"}</span>
+                              <span class="bg-cyan-700 rounded-full px-3 py-1 text-sm font-semibold text-white mb-2">{badge.name ? badge.name :  "No Badges Found"}</span>
                           </div>
                             )
                         })}
