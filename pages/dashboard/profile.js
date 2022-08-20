@@ -156,7 +156,7 @@ const profile = () => {
                           <h1 className='text-white font-semibold text-md ml-4 mt-2 pr-2'>Profile Info</h1>
 
                           <img className='border-1 border-blue-600 h-24 w-24 rounded-full ml-4 mb-2 mt-2' alt='' src={userData.avatarURL}/>
-                          <label className='px-4 py-2 bg-blue-600 ml-4 rounded-md cursor-pointer text-md'>
+                          <label className='px-4 py-2 bg-blue-600 ml-4 rounded-md cursor-pointer text-md mt-2'>
                             Upload Avatar
                           <input type="file" onChange={event => changePfp(event)} className="hidden"/>
                           </label>
@@ -171,7 +171,7 @@ const profile = () => {
                             return (
                               
                           <div class="mb-4 ml-4">
-                              <span class="bg-yellow-400 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{badge.name ? badge.name :  "No Badges Found"}</span>
+                              <span class="bg-pink-400 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-1 mb-2">{badge.name ? badge.name :  "No Badges Found"}</span>
                           </div>
                             )
                         })}
