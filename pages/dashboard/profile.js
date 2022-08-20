@@ -36,6 +36,9 @@ const profile = () => {
         toast.error("Error getting user's data. If this re-occurs please contact support@studyit.ml")
         return;
       }
+      if (!res.data[0]) {
+        router.push('/')
+      }
       setUserData(res.data[0])
       res.data[0].badges.forEach(bad => {
         array.push(bad)
