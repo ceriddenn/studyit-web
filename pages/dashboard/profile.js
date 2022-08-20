@@ -25,9 +25,6 @@ const profile = () => {
   useEffect(() =>{
     setLoading(true)
     if(!router.isReady) return;
-    if (!session.user) {
-      router.push('/login')
-    }
     const query1 = async () => {
       const array = []
     await supabase.from('Profile').select('*').match({id:userID}).then(async res => {
@@ -37,6 +34,7 @@ const profile = () => {
         return;
       }
       if (!res.data[0]) {
+        supabase.auth.signOut()
         router.push('/')
       }
       setUserData(res.data[0])

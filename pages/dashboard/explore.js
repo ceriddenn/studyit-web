@@ -28,15 +28,16 @@ const explore = () => {
     }
     useEffect(() => {
         setLoading(true)
-        if (!session && session.user) {
-          router.push('/login')
-        }
         async function query() {
             const array1 = []
             await supabase.from('StudyDeck').select('*').match({isDeckPublic: true}).then(res => {
                 const ed = res.body
                 ed.forEach(deck => {
                 array1.push(deck)
+                if (!res.data[0]) {
+                  supabase.auth.signOut()
+                  router.push('/')
+                }
             })
         })
         setDecks(array1)

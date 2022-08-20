@@ -119,6 +119,10 @@ const home = () => {
       } else {
         window.location.reload()
       }
+      if (!res.data[0]) {
+        supabase.auth.signOut()
+        router.push('/')
+      }
     })
   }
   }

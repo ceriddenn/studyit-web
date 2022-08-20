@@ -74,6 +74,10 @@ const quickstudy = () => {
     async function query() {
       await supabase.from("StudyDeck").select("*").match({deckId: deckId}).then(async res => {
         // check if there is result or empty
+        if (!res.data[0]) {
+          supabase.auth.signOut()
+          router.push('/')
+        }
         setOriginalDeck(res.data[0])
         const nums = getTwoRandomElements(res.data[0].contents, num)
         setDeckContents(res.data[0].contents)
