@@ -40,9 +40,9 @@ const circles = () => {
         image: "google.com",
       }
       await chatClient.connectUser(user, chatUserToken)
-      const channel = chatClient.channel('messaging', "dfsdfdsf", {
+      const channel = chatClient.channel('messaging', "Test Channel1", {
         image: "google.com",
-        name: "4444",
+        name: "Test Channel",
         members: ["b87e1d31-d9db-40a6-b280-03fd6ec4d4f6", "7a26142e-a493-4ffd-9d17-0e9b3635da18", "cde03748-c6c8-4207-b52e-c3b3a91cefba"],
       })
       await channel.watch()
