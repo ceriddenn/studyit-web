@@ -25,6 +25,7 @@ const profile = () => {
   useEffect(() =>{
     setLoading(true)
     if(!router.isReady) return;
+    let username;
     const query1 = async () => {
       const array = []
     await supabase.from('Profile').select('*').match({id:userID}).then(async res => {
@@ -162,8 +163,9 @@ const profile = () => {
                             
                             <div className='flex flex-row'>
                           <div className='flex flex-col'>
-                          <h1 className='text-white font-semibold text-md ml-4 mt-2 pr-2'>Profile Info | <span className='text-blue-600 text-md underlined' onClick={event => passwordReset(event)}>Reset Password?</span></h1>
-
+                            <div className='flex flex-row'>
+                          <h1 className='text-white font-semibold text-md ml-4 mt-2 pr-2'>Profile Info | <h1 className='text-blue-600 text-md underlined cursor-pointer' onClick={event => passwordReset(event)}>Reset Password?</h1></h1>
+                          </div>
                           <img className='border-1 border-blue-600 h-24 w-24 rounded-full ml-4 mb-2 mt-2' alt='' src={userData.avatarURL && userData.avatarURL}/>
                           <label className='px-4 py-2 bg-blue-600 ml-4 rounded-md cursor-pointer text-md mt-2'>
                             Upload Avatar
