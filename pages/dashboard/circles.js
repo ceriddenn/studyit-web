@@ -49,7 +49,7 @@ const circles = () => {
         chatUserToken = res.token
       })
       const user = {
-        id: authUser.email,
+        id: email,
         name: authUser.username,
         image: "google.com"
       }
