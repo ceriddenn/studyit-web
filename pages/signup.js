@@ -25,7 +25,6 @@ const signup = () => {
       router.push('/login')
     }
     async function handleSignup(event) {
-      const serverURL = "https://sibes.tk/sendsignupemail"
 
         event.preventDefault();
         if (localStorage.getItem('betatoken').length > 0) {
@@ -59,7 +58,7 @@ const signup = () => {
                     res.user.email
                   )
                   try {
-                  fetch(serverURL, {
+                  fetch("https://sibes.tk/sendsignupemail", {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
               recip: res.user.email,
