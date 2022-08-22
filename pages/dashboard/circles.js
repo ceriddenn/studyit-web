@@ -86,7 +86,7 @@ const circles = () => {
     })
     await channel.updatePartial({ set: {
    config_overrides: {
-      commands: ["ban"]
+      commands: [{"name": "ban"}]
    },
 }});
     await channel.watch()
