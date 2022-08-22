@@ -42,10 +42,10 @@ const circles = () => {
       const chatClient = StreamChat.getInstance("283u2ftt83su")
       const session = supabase.auth.session()
       const email = session.user.email
-      await supabase.from('Profile').select('*').match({id:userId}).then(async res => {
+      await supabase.from('Profile').select('*').match({email:email}).then(async res => {
         authUser = res.data[0]
       })
-      await requestNewUserToken(email, authUser.id).then(async res => {
+      await requestNewUserToken(email).then(async res => {
         chatUserToken = res.token
       })
       const user = {
