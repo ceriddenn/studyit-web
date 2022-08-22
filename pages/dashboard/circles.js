@@ -77,7 +77,7 @@ const circles = () => {
     await supabase.from('Profile').select('*').match({email:email}).then(async res => {
       otherUserId = res.data[0].id
     })
-    const channel = client.channel('messaging',input1, {
+    const channel = client.channel('messaging', {
       image: "google.com",
       name: input1,
       members: [userId, otherUserId],
