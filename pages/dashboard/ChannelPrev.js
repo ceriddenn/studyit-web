@@ -5,7 +5,7 @@ import supabase from '../../lib/supabase';
 import {StreamChat} from 'stream-chat'
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-export const ChannelPrev = (props) => {
+const ChannelPrev = (props) => {
   const client = StreamChat.getInstance("283u2ftt83su")
   let selected;
   const router = useRouter()
@@ -76,4 +76,4 @@ export const ChannelPrev = (props) => {
     </div>
   );
 };
-
+export default ChannelPrev;
