@@ -18,7 +18,7 @@ import {
 } from 'stream-chat-react'
 
 import  'stream-chat-react/dist/css/index.css'
-import { ChannelPrev } from './ChannelPrev'
+import ChannelPrev from './ChannelPrev'
 import Sidebar from '../../components/Sidebar'
 const CustomEmptyStateIndicator = () => {
   return (
