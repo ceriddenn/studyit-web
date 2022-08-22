@@ -32,28 +32,24 @@ const circles = () => {
   const [userData, setUserData] = useState([{}])
   const [channel, setChannel] = useState(null)
   const [update1, setUpdate1] = useState(true)
-  const session = supabase.auth.session()
-  const delay = ms => new Promise(res => setTimeout(res, ms));
-
   useEffect(() => {
     async function init() {
+        const session = supabase.auth.session()
+
       let chatUserToken;
       let authUser;
       const chatClient = StreamChat.getInstance("283u2ftt83su")
-      const email = session.user.email
-      await supabase.from('Profile').select('*').match({email:email}).then(async res => {
+      const id = session.user.id
+      await supabase.from('Profile').select('*').match({id:id}).then(async res => {
         authUser = res.data[0]
       })
-      await requestNewUserToken(email).then(async res => {
+      await requestNewUserToken(id).then(async res => {
         const user = {
-        id: email,
+        id: authUser.id,
         name: authUser.username,
         image: "google.com"
       }
-      await delay(1000)
-        alert('up')
-      const data = await chatClient.connectUser(user, res.token)
-      alert(data)
+      await chatClient.connectUser(user, res.token)
       })
       setClient(chatClient)
     }
@@ -65,7 +61,7 @@ const circles = () => {
   <LoadingIndicator size="100"/>
   <h1 className='text-blue-600 font-semibold text-2xl'>Connecting your studyit account to our chat network!</h1>
   </div>)
-  const filters = { type: 'messaging', members: { $in: [session.user.email] }}
+  const filters = { type: 'messaging', members: { $in: [session.user.id] }}
     const sort = { last_message_at: -1 }
   const createCircle = async (event) => {
     event.preventDefault()
