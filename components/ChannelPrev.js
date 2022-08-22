@@ -32,8 +32,7 @@ const ChannelPrev = (props) => {
     const session = supabase.auth.session();
     const filters = { type: 'messaging', members: { $in: [session.user.id] }}
     const sort = { last_message_at: -1 }
-    alert(channel.owner, session.user.id)
-    if (channel.owner == session.user.id) {
+    if (channel.data.owner == session.user.id) {
     const query = await fetch("https://sibes.tk/hdc", {
       headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
