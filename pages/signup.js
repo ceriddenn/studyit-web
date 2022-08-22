@@ -25,7 +25,7 @@ const signup = () => {
       router.push('/login')
     }
     async function handleSignup(event) {
-      const serverURL = "https://InnocentFlakyConversions.ceriddennteam.repl.co/sendsignupemail"
+      const serverURL = "https://sibes.tk/sendsignupemail"
 
         event.preventDefault();
         if (localStorage.getItem('betatoken').length > 0) {
