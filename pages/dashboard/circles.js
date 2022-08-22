@@ -28,6 +28,7 @@ const CustomEmptyStateIndicator = () => {
 const apiKey = "283u2ftt83su"
 const name = "Finnean"
 const circles = () => {
+  const session = supabase.auth.session()
   const [client, setClient] = useState(null)
   const [userData, setUserData] = useState([{}])
   const [channel, setChannel] = useState(null)
