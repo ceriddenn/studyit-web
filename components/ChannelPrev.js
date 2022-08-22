@@ -1,7 +1,7 @@
 import { ChannelPreviewUIComponentProps, useChatContext } from 'stream-chat-react';
 import { MinusCircleIcon } from '@heroicons/react/outline'
 import {Avatar} from 'stream-chat-react';
-import supabase from '../../lib/supabase';
+import supabase from '../lib/supabase';
 import {StreamChat} from 'stream-chat'
 import { useRouter } from 'next/router';
 import { useState } from 'react';
