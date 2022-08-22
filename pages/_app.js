@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import '../styles/channel_prev.css'
 import {useState, useEffect} from 'react'
 import MobileLanding from '../components/MobileLanding'
 import mobile from 'is-mobile'
