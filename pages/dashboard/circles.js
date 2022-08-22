@@ -71,20 +71,15 @@ const circles = () => {
     event.preventDefault()
     const session = supabase.auth.session()
     const userId = session.user.id
-    let otherUserId;
     const input1 = document.getElementById('input1').value;
-    const email = document.getElementById('input2').value;
-    await supabase.from('Profile').select('*').match({email:email}).then(async res => {
-      otherUserId = res.data[0].id
-    })
-    const channel = await client.channel('messaging', {
-      image: "google.com",
+    const channel1 = await client.channel('messaging', {
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxim50eCwGskkSZLoh7lJJkTA3zruwUSD5MNh4R3Wg4pIXxdlcob6gJY2-Pb2LsomK4p8:https://i.guim.co.uk/img/media/fe1e34da640c5c56ed16f76ce6f994fa9343d09d/0_174_3408_2046/master/3408.jpg%3Fwidth%3D1200%26height%3D900%26quality%3D85%26auto%3Dformat%26fit%3Dcrop%26s%3D0d3f33fb6aa6e0154b7713a00454c83d&usqp=CAU",
       name: input1,
       owner: userId,
       mode: 'circle'
     })
-    await channel.create()
-    await channel.watch()
+    await channel1.create()
+    await channel1.watch()
   }
 
 
