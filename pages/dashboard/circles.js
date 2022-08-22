@@ -51,7 +51,9 @@ const circles = () => {
         image: "google.com"
       }
       await delay(1000)
-      await chatClient.connectUser(user, res.token)
+        alert('up')
+      const data = await chatClient.connectUser(user, res.token)
+      alert(data)
       })
       setClient(chatClient)
     }
