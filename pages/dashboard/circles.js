@@ -45,16 +45,14 @@ const circles = () => {
         authUser = res.data[0]
       })
       await requestNewUserToken(email).then(async res => {
-        chatUserToken = res.token
-      })
-      alert(authUser.username + " " + chatUserToken)
-      const user = {
+        const user = {
         id: email,
         name: authUser.username,
         image: "google.com"
       }
       await delay(1000)
-      await chatClient.connectUser(user, chatUserToken)
+      await chatClient.connectUser(user, res.token)
+      })
       setClient(chatClient)
     }
     init()
@@ -65,7 +63,7 @@ const circles = () => {
   <LoadingIndicator size="100"/>
   <h1 className='text-blue-600 font-semibold text-2xl'>Connecting your studyit account to our chat network!</h1>
   </div>)
-  const filters = { type: 'messaging', members: { $in: [session.user.id] }}
+  const filters = { type: 'messaging', members: { $in: [session.user.email] }}
     const sort = { last_message_at: -1 }
   const createCircle = async (event) => {
     event.preventDefault()
