@@ -84,6 +84,11 @@ const circles = () => {
       owner: userId,
       mode: 'circle'
     })
+    await channel.updatePartial({ set: {
+   config_overrides: {
+      commands: ["ban"]
+   },
+}});
     await channel.watch()
   }
 
