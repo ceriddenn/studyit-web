@@ -51,7 +51,7 @@ const circles = () => {
       const user = {
         id: authUser.id,
         name: authUser.username,
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxim50eCwGskkSZLoh7lJJkTA3zruwUSD5MNh4R3Wg4pIXxdlcob6gJY2-Pb2LsomK4p8:https://i.guim.co.uk/img/media/fe1e34da640c5c56ed16f76ce6f994fa9343d09d/0_174_3408_2046/master/3408.jpg%3Fwidth%3D1200%26height%3D900%26quality%3D85%26auto%3Dformat%26fit%3Dcrop%26s%3D0d3f33fb6aa6e0154b7713a00454c83d&usqp=CAU",
+        image: authUser.avatarURL
       }
       await delay(1000)
       await chatClient.connectUser(user, chatUserToken)
