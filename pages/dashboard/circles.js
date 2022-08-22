@@ -51,7 +51,7 @@ const circles = () => {
       const user = {
         id: authUser.id,
         name: authUser.username,
-        image: authUser.avatarURL
+        image: "google.com"
       }
       await delay(1000)
       await chatClient.connectUser(user, chatUserToken)
