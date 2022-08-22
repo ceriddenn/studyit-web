@@ -80,7 +80,6 @@ const circles = () => {
     const channel = await client.channel('messaging', {
       image: "google.com",
       name: input1,
-      members: [userId, otherUserId],
       owner: userId,
       mode: 'circle'
     })
