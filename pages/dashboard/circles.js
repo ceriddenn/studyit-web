@@ -77,19 +77,15 @@ const circles = () => {
     await supabase.from('Profile').select('*').match({email:email}).then(async res => {
       otherUserId = res.data[0].id
     })
-    const channel = client.channel('messaging', {
+    const channel = await client.channel('messaging', {
       image: "google.com",
       name: input1,
       members: [userId, otherUserId],
       owner: userId,
       mode: 'circle'
     })
+    await channel.create()
     await channel.watch()
-    await channel.updatePartial({ set: {
-   config_overrides: {
-      commands: [{"name": "ban"}]
-   },
-}});
   }
 
 
