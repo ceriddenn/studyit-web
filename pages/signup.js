@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import supabase from '../lib/supabase'
 import {useEffect} from 'react'
 import Head from 'next/head'
+import { request } from 'http';
 const signup = () => {
 
     const router = useRouter()
@@ -119,6 +120,14 @@ const signup = () => {
       }
 
     }, [])
+
+    //const betaRequest = async (betaToken, beta) => {
+     // const request = await supabase.from('BetaUsers').select('*').match({id: supabase.auth.session().user.id}).then(async res => {
+       // console.log(await res)
+      //})s
+      //const result = await request.json()
+      //return result;
+    //}
 
     const checkIfBeta = async (event) => {
       //query supabase
