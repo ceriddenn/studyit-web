@@ -45,6 +45,7 @@ const circles = () => {
   const [groupName, setGroupName] = useState(null)
   const [groupIcon, setGroupIcon] = useState(null)
   const [error, setError] = useState(false)
+  const delay = ms => new Promise(res => setTimeout(res, ms));
 
   useEffect(() => {
     async function init() {
@@ -121,15 +122,16 @@ const circles = () => {
     } else {
       var membersv2 = []
       const id = supabase.auth.session().user.id
-      members.every(async m => {
+       members.every(async m => {
         await supabase.from('Profile').select('*').match({email:m.email}).then(async res => {
-          if (res.data.length <= 0) return false;
+          console.log(res.data[0].id)
           membersv2.push(res.data[0].id)
         })
       
       })
+      await delay(500) // add await above later TODO
       membersv2.push(id)
-      console.log("err", error)
+      console.log("datd1111", membersv2)
       const cid = Math.floor(Math.random() * 1000000) + 1
       var type;
       if (dm) {
