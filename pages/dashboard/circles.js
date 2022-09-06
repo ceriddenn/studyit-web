@@ -4,6 +4,8 @@ import {LogoutIcon, HomeIcon, CogIcon, SearchCircleIcon, ChatAlt2Icon, MinusSmIc
 import {getChannel} from '../../lib/streamchat'
 import supabase from '../../lib/supabase'
 import {ArrowDownIcon, ArrowRightIcon} from '@heroicons/react/outline' 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {StreamChat} from 'stream-chat'
 import {
   Chat,
@@ -20,6 +22,7 @@ import {
 
 import  'stream-chat-react/dist/css/index.css'
 import ChannelPrev from '../../components/ChannelPrev'
+
 import Sidebar from '../../components/Sidebar'
 import { BounceLoader } from 'react-spinners'
 const CustomEmptyStateIndicator = () => {
@@ -27,8 +30,7 @@ const CustomEmptyStateIndicator = () => {
     <h1 className='flex justify-center'>No circles or dms found.</h1>
   )
 }
-const apiKey = "283u2ftt83su"
-const name = "Finnean"
+
 const circles = () => {
   const session = supabase.auth.session()
   const [client, setClient] = useState(null)
@@ -122,14 +124,22 @@ const circles = () => {
     } else {
       var membersv2 = []
       const id = supabase.auth.session().user.id
-       members.every(async m => {
-        await supabase.from('Profile').select('*').match({email:m.email}).then(async res => {
-          console.log(res.data[0].id)
+      var stop;
+      for (var i = 0; i < members.length; i++) {
+        await supabase.from('Profile').select('*').match({email:members[i].email}).then(async res => {
+          if (res.data[0] == null) {
+            stop=true
+            toast.error("The email " + members[i].email + " was not found or they haven't tried to login to our circles feature yet.")
+            return;
+          }
           membersv2.push(res.data[0].id)
         })
-      
-      })
-      await delay(500) // add await above later TODO
+      }
+
+      await delay(500)
+      if (stop) {
+        return;
+      }
       membersv2.push(id)
       console.log("datd1111", membersv2)
       const cid = Math.floor(Math.random() * 1000000) + 1
@@ -145,6 +155,7 @@ const circles = () => {
       } else {
         type = "circle"
       }
+      toast.success("Attempting to create a " + type + " with the name " + groupName)
       const channel = await client.channel('messaging', cid, {
         image: groupIcon,
         name: groupName,
@@ -290,6 +301,7 @@ const circles = () => {
         </div>
     </div>
 
+    <ToastContainer theme="colored" position="bottom-right"/>
 
     </div>
   }
