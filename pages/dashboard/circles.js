@@ -215,7 +215,7 @@ const circles = () => {
               </a>
             </li>
             <li>
-              <div>
+              <div className="flex justify-center items-center justify-between">
               <button onClick={event => toggleCreationModal(event)} className="text-white px-4 py-2 bg-yellow-400 rounded-md">Create new Circle</button>
               </div>
             </li>
